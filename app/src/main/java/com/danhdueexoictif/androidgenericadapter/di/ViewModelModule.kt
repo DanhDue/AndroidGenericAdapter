@@ -1,0 +1,20 @@
+package com.danhdueexoictif.androidgenericadapter.di
+
+import com.danhdueexoictif.androidgenericadapter.ui.base.SharedViewModel
+import com.danhdueexoictif.androidgenericadapter.ui.screen.home.HomeViewModel
+import com.danhdueexoictif.androidgenericadapter.ui.screen.login.LoginViewModel
+import com.danhdueexoictif.androidgenericadapter.ui.screen.menu.MenuViewModel
+import com.danhdueexoictif.androidgenericadapter.ui.screen.sample.SampleViewModel
+import com.danhdueexoictif.androidgenericadapter.ui.screen.splash.SplashViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
+
+val viewModelModule = module {
+    viewModel { SharedViewModel() }
+    viewModel { HomeViewModel() }
+    viewModel { LoginViewModel() }
+    viewModel { MenuViewModel() }
+    viewModel { SampleViewModel() }
+    viewModel { SplashViewModel() }
+}
+

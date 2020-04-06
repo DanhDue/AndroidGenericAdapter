@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_global">
+
+    <action
+        android:id="@+id/navigateToRoot"
+        app:enterAnim="@anim/anim_grow_fade_in_from_bottom"
+        app:exitAnim="@anim/anim_fade_out"
+        app:launchSingleTop="true"
+        app:popEnterAnim="@anim/anim_fade_in"
+        app:popExitAnim="@anim/anim_shrink_fade_out_from_bottom"
+        app:popUpToInclusive="true" />
+
+    <include app:graph="@navigation/nav_main" />
+    <include app:graph="@navigation/nav_home" />
+
+</navigation>

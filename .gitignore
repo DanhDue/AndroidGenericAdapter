@@ -1,0 +1,14 @@
+*.iml
+.gradle
+/local.properties
+.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+fastlane/report.xml
+fastlane/README.md
+.framgia-ci-reports
+/app/src/main/assets/crashlytics-build.properties
+/app/src/main/res/values/com_crashlytics_export_strings.xml

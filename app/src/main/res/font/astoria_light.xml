@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+    <font
+        android:font="@font/astoria_light_src"
+        android:fontStyle="normal"
+        android:fontWeight="400" />
+</font-family>

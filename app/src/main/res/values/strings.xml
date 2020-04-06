@@ -1,0 +1,28 @@
+<resources>
+    <string name="txt_icon_quote">icon quote</string>
+    <string name="quote">&#160;&#160;&#160;&#160;&#160;&#160; %1$s</string>
+    <string name="txt_no_internet_connection_title">インタネットに接続していません。</string>
+    <string name="txt_no_internet_connection_message">インタネットに接続していません。端末のWi-fiやモバイルデータ通信がオンになっているか確認してから再試行してください。</string>
+    <string name="txt_cancel">キャンセル</string>
+    <string name="txt_retry">再試行</string>
+    <string name="txt_connection_error_title">サーバへの接続に失敗しました。</string>
+    <string name="txt_connection_error_message">インタネット接続を確認してから再試行してください。</string>
+    <string name="txt_server_maintenance_title">サーバへの接続に失敗しました。</string>
+    <string name="txt_server_maintenance_message">再試行してください。</string>
+    <string name="txt_ok">Ok</string>
+    <string name="txt_an_error_occurred">エラーが発生しました。</string>
+    <string name="txt_common_error_message">実行中にエラーが発生しました。 もう一度やり直してください。</string>
+    <string name="home_tab_name">Home</string>
+    <string name="menu_tab_name">Menu</string>
+    <string name="txt_login_description">Sun* Newsから面白い情報がもっともらえるようにG-SUITEで<b>ログイン</b>してください。</string>
+    <string name="txt_login_with_gsuit">G-SUITアカウントでログインします。</string>
+    <string name="txt_next">進む</string>
+    <string name="txt_previous">戻る</string>
+    <string name="msg_press_back_again_to_exit">アプリを終了するため 戻るボタンを押下してください。</string>
+    <string name="text_reload_data">エラーが発生しました。もう一度やり直してください。</string>
+    <string name="text_reload">リロード</string>
+    <string name="txt_guest">ゲスト 様</string>
+    <string name="txt_login_register">ログイン・会員登録</string>
+    <string name="txt_skin_measurement">肌測定</string>
+    <string name="txt_for_you">FOR YOU</string>
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="red">#FF0000</color>
+    <color name="raven">#6D758C</color>
+    <color name="cadet_blue">#B5B9C6</color>
+    <color name="tv_login_description">#FF24253D</color>
+    <color name="color_reload_feed_data">#787878</color>
+    <color name="newbie_item_border">#FFE2E5ED</color>
+    <color name="item_newbie_user_name">#FF24253D</color>
+    <color name="item_newbie_quote">#FF24253D</color>
+    <color name="dark_blue">#081f2c</color>
+    <color name="gold">#8a7149</color>
+    <color name="beige">#e2d9c2</color>
+    <color name="off_white">#f2eeca</color>
+    <color name="line_gray">#ced2d5</color>
+    <color name="dark_blue_50">#80081f2c</color>
+    <color name="black_50">#80000000</color>
+</resources>

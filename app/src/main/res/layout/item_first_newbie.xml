@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.danhdueexoictif.androidgenericadapter.utils.controller.OnEventController" />
+
+        <variable
+            name="item"
+            type="com.danhdueexoictif.androidgenericadapter.data.bean.NewBieObject" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        clickSafe="@{(v) -> item.eventController.onEvent(OnEventController.ITEM_NEWBIE_CLICKED, v, item)}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_24"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_24"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="@dimen/dp_3"
+        app:cardElevation="@dimen/dp_2"
+        app:cardPreventCornerOverlap="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/newbie_background"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_16">
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/avatarBound"
+                android:layout_width="@dimen/dp_136"
+                android:layout_height="@dimen/dp_136"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_32"
+                app:cardCornerRadius="@dimen/dp_68"
+                app:cardElevation="@dimen/dp_8">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgAvatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:imageUrl="@{item.avatarMember.data.thumbnailPath}"
+                    app:placeholder="@{@drawable/ll_no_image}"
+                    app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:fontFamily="@font/open_sans_bold"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.33"
+                android:text="@{ item.fullname }"
+                android:textColor="@color/item_newbie_user_name"
+                android:textSize="@dimen/sp_18"
+                android:textStyle="bold"
+                tools:text="Nguyễn Hữu Công" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvPosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:fontFamily="@font/open_sans_bold"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.36"
+                android:text="@{ item.position }"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvUserName"
+                tools:text="Android Developer - Unit 2" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_18"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_24"
+                    android:layout_height="@dimen/dp_24"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:contentDescription="@string/txt_icon_quote"
+                    android:src="@drawable/ic_quote" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvQuote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingMultiplier="1.57"
+                    android:text='@{ item.quote != null ? @string/quote(item.quote) : ""}'
+                    android:textAlignment="center"
+                    android:textColor="@color/item_newbie_quote"
+                    android:textSize="@dimen/sp_14"
+                    tools:text="         Hi vọng trong thời gian đồng hành cùng Sun*, tôi sẽ cùng Sun* tạo ra những sản phẩm sáng tạo, xây dựng môi trường ..." />
+            </FrameLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

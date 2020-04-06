@@ -1,0 +1,84 @@
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = "0.8.1"
+    // Custom reports directory can be specfied like this:
+    // reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
+
+project.afterEvaluate {
+
+    android.applicationVariants.all { variant ->
+        def variantName = variant.name
+        def testTaskName = "test${variantName.capitalize()}UnitTest"
+
+        tasks.create(name: "${testTaskName}Coverage", type: JacocoReport, dependsOn: "$testTaskName") {
+            // task implementation here ...
+            group = "Coverage"
+            description = "Generate Jacoco coverage reports for the ${variantName.capitalize()} build."
+
+            reports {
+                html.enabled = true
+                xml.enabled = true
+                xml {
+                    destination file("${project.rootDir}/.framgia-ci-reports/coverage/coverage.xml")
+                }
+                html {
+                    destination file("${project.rootDir}/.framgia-ci-reports/coverage/")
+                }
+            }
+
+            def excludes = ['**/R.class',
+                            '**/R$*.class',
+                            '**/BR.class',
+                            '**/DataBinder*.class',
+                            '**/*DataBinding*.*',
+                            '**/BuildConfig.*',
+                            '**/Manifest*.*',
+                            '**/*Test*.*',
+                            '**/android/**/*.*',
+                            '**/*Fragment.*',
+                            '**/*Activity.*',
+                            '**/androidx/**/*.*',
+                            '**/com.facebook/**/*.*',
+                            '**/fabric/*.*',
+                            '**/CrashReportingTree.class',
+                            '**/*Companion.class',
+                            '**/org.koin/**/*.*',
+                            '**/databinding/*.*',
+                            '**/com/danhdueexoictif/androidgenericadapter/ui/widgets/**/*.*',
+                            '**/com/danhdueexoictif/androidgenericadapter/generated/**/*.*',
+                            '**/com/danhdueexoictif/androidgenericadapter/data/bean/**/*.*',
+                            '**/com/danhdueexoictif/androidgenericadapter/data/remote/request/**/*.*',
+                            '**/com/danhdueexoictif/androidgenericadapter/data/remote/response/**/*.*',
+                            '**/com/danhdueexoictif/androidgenericadapter/di/**/*.*',
+                            '**/com/danhdueexoictif/androidgenericadapter/ui/base/**/*.*'
+            ]
+            def javaClasses = fileTree(dir: variant.javaCompiler.destinationDir, excludes: excludes)
+            def kotlinClasses = fileTree(dir: "${buildDir}/tmp/kotlin-classes/${variantName}", excludes: excludes)
+            classDirectories = files([javaClasses, kotlinClasses])
+
+            sourceDirectories = files([
+                    "$project.projectDir/src/main/java",
+                    "$project.projectDir/src/${variantName}/java",
+                    "$project.projectDir/src/main/kotlin",
+                    "$project.projectDir/src/${variantName}/kotlin"
+            ])
+
+            executionData = files("${project.buildDir}/jacoco/${testTaskName}.exec")
+        }
+    }
+}
+
+task copyMd(type: Copy) {
+    android.applicationVariants.all { variant ->
+        def variantName = variant.name
+        def testTaskName = "test${variantName.capitalize()}UnitTest"
+        from "${project.buildDir}/reports/tests/$testTaskName"
+        into "${project.rootDir}/.framgia-ci-reports/summary"
+    }
+}

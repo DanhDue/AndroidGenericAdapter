@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_home"
+    app:startDestination="@id/homeDest">
+
+    <fragment
+        android:id="@+id/homeDest"
+        android:name="com.danhdueexoictif.androidgenericadapter.ui.screen.home.HomeFragment"
+        android:label="@string/menu_tab_name"
+        tools:layout="@layout/home_fragment" />
+
+
+</navigation>

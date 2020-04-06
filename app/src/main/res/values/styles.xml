@@ -1,0 +1,49 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="BaseTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/hiragino_sans_w3</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="JapaneseTheme" parent="AppTheme">
+        <item name="android:lineSpacingMultiplier">1.5</item>
+    </style>
+
+    <style name="DefaultLanguageTheme" parent="AppTheme">
+        <item name="android:lineSpacingMultiplier">1.25</item>
+    </style>
+
+    <style name="AppTheme.Boot" parent="BaseTheme">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/black</item>
+    </style>
+
+    <style name="AppTheme" parent="BaseTheme" />
+
+    <style name="Widget.SunNew.LoginBottomText" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:padding">@dimen/dp_8</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:textColor">@color/raven</item>
+        <item name="rippleColor">?attr/colorControlHighlight</item>
+    </style>
+
+    <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">@dimen/sp_11</item>
+    </style>
+
+    <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">@dimen/sp_12</item>
+    </style>
+
+</resources>

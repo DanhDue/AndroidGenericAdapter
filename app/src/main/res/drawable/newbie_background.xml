@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <stroke
+        android:width="@dimen/dp_1"
+        android:color="@color/newbie_item_border" />
+    <corners
+        android:bottomLeftRadius="@dimen/dp_3"
+        android:bottomRightRadius="@dimen/dp_3"
+        android:topLeftRadius="@dimen/dp_3"
+        android:topRightRadius="@dimen/dp_3" />
+</shape>

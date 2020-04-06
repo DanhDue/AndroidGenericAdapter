@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_boot"
+    app:startDestination="@id/splash_dest">
+
+    <action
+        android:id="@+id/navigateToSample"
+        app:destination="@id/sampleDest"
+        app:enterAnim="@anim/anim_grow_fade_in_from_bottom"
+        app:exitAnim="@anim/anim_fade_out"
+        app:popEnterAnim="@anim/anim_fade_in"
+        app:popExitAnim="@anim/anim_shrink_fade_out_from_bottom" />
+
+    <action
+        android:id="@+id/navigateToHome"
+        app:destination="@id/homeDest"
+        app:enterAnim="@anim/anim_grow_fade_in_from_bottom"
+        app:exitAnim="@anim/anim_fade_out"
+        app:popEnterAnim="@anim/anim_fade_in"
+        app:popExitAnim="@anim/anim_shrink_fade_out_from_bottom" />
+
+    <fragment
+        android:id="@+id/homeDest"
+        android:name="com.danhdueexoictif.androidgenericadapter.ui.screen.home.HomeFragment"
+        tools:layout="@layout/home_fragment" />
+
+    <fragment
+        android:id="@+id/loginDest"
+        android:name="com.danhdueexoictif.androidgenericadapter.ui.screen.login.LoginFragment"
+        android:label="login"
+        tools:layout="@layout/login_fragment" />
+
+    <fragment
+        android:id="@+id/sampleDest"
+        android:name="com.danhdueexoictif.androidgenericadapter.ui.screen.sample.SampleFragment"
+        android:label="Sample"
+        tools:layout="@layout/sample_fragment" />
+
+    <fragment
+        android:id="@+id/splash_dest"
+        android:name="com.danhdueexoictif.androidgenericadapter.ui.screen.splash.SplashFragment"
+        tools:layout="@layout/splash_fragment" />
+
+</navigation>
