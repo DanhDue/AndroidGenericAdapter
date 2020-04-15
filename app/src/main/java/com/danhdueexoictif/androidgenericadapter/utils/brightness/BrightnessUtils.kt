@@ -6,7 +6,8 @@ import android.provider.Settings
 import android.provider.Settings.SettingNotFoundException
 import android.view.Window
 import android.view.WindowManager
-import com.danhdueexoictif.androidgenericadapter.utils.brightness.BrightnessUtils.Companion.brightnessChanging
+import com.danhdueexoictif.androidgenericadapter.utils.brightness.BrightnessUtils.Companion.brightnessIsRestoring
+import com.danhdueexoictif.androidgenericadapter.utils.brightness.BrightnessUtils.Companion.brightnessUpIsChanging
 import com.danhdueexoictif.androidgenericadapter.utils.brightness.BrightnessUtils.Companion.currentAppBrightnessValue
 import com.danhdueexoictif.androidgenericadapter.utils.brightness.BrightnessUtils.Companion.isMaxBrightness
 import com.danhdueexoictif.androidgenericadapter.utils.brightness.BrightnessUtils.Companion.sysBrightnessValue
@@ -18,7 +19,7 @@ enum class BrightnessUtils : BrightnessHelper {
     /**
      * This one just keep BrightnessUtils/BrightnessHelper is a singleton instance.
      * A singleton instance without members. Notice:
-     * Call {@link [BrightnessUtils].[Companion].[init]) } method instead.
+     * Call {@link BrightnessUtils.Companion.init(context: Context) } method instead.
      */
     INSTANCE;
 
@@ -65,7 +66,8 @@ enum class BrightnessUtils : BrightnessHelper {
         var sysBrightnessValue = 0F
         var currentAppBrightnessValue = 0F
         var isMaxBrightness = false
-        var brightnessChanging = false
+        var brightnessUpIsChanging = false
+        var brightnessIsRestoring = false
 
         /**
          * initialize members and retrieve singleton instance.
@@ -110,12 +112,16 @@ private fun Window.overrideFullBrightness() {
     this.attributes = layoutParams
 }
 
+val changeBrightnessHandler = Handler()
+var changeToMaxRunnable = Runnable { }
+var changeToDefaultRunnable = Runnable { }
+
 /**
  *  setup max brightness for the App.
  */
 fun Window.changeMaxBrightness() {
     if (isMaxBrightness) return
-    if (brightnessChanging) return
+    if (brightnessUpIsChanging) return
 
     // Change screen brightness while the Auto Brightness Mode is on
     if (BrightnessUtils.init(context).isAutoBrightnessMode()) {
@@ -124,32 +130,37 @@ fun Window.changeMaxBrightness() {
         return
     }
 
+    // cancel brightness restoring before change it.
+    if (brightnessIsRestoring) {
+        brightnessIsRestoring = false
+        changeBrightnessHandler.removeCallbacks(changeToDefaultRunnable)
+    }
+
     // Otherwise change screen brightness while the Auto Brightness Mode is off
-    val handler = Handler()
-    val runnable: Runnable = object : Runnable {
+    changeToMaxRunnable = object : Runnable {
         override fun run() {
             currentAppBrightnessValue += 0.07f
             changeAppScreenBrightnessValue(currentAppBrightnessValue)
             if (currentAppBrightnessValue < 1.0f) {
-                brightnessChanging = true
-                handler.postDelayed(this, 100)
+                brightnessUpIsChanging = true
+                changeBrightnessHandler.postDelayed(this, 100)
             } else {
                 changeAppScreenBrightnessValue(1.0f)
                 currentAppBrightnessValue = sysBrightnessValue
                 isMaxBrightness = true
-                brightnessChanging = false
-                handler.removeCallbacks(this)
+                brightnessUpIsChanging = false
+                changeBrightnessHandler.removeCallbacks(this)
             }
         }
     }
-    handler.postDelayed(runnable, 0)
+    changeBrightnessHandler.postDelayed(changeToMaxRunnable, 0)
 }
 
 /**
  * restore brightness follow system settings.
  */
 fun Window.changeBrightnessToDefault() {
-    if (brightnessChanging) return
+    if (brightnessIsRestoring) return
 
     // Change screen brightness while the Auto Brightness Mode is on
     if (BrightnessUtils.init(context).isAutoBrightnessMode()) {
@@ -158,24 +169,29 @@ fun Window.changeBrightnessToDefault() {
         return
     }
 
+    // cancel brightness up before restore it.
+    if (brightnessUpIsChanging) {
+        brightnessUpIsChanging = false
+        changeBrightnessHandler.removeCallbacks(changeToMaxRunnable)
+    }
+
     // Otherwise change screen brightness while the Auto Brightness Mode is off
-    val handler = Handler()
-    val runnable: Runnable = object : Runnable {
+    changeToDefaultRunnable = object : Runnable {
         override fun run() {
             currentAppBrightnessValue -= 0.07f
             changeAppScreenBrightnessValue(currentAppBrightnessValue)
             if (currentAppBrightnessValue > sysBrightnessValue) {
-                brightnessChanging = true
-                handler.postDelayed(this, 100)
+                brightnessIsRestoring = true
+                changeBrightnessHandler.postDelayed(this, 100)
             } else {
                 changeAppScreenBrightnessValue(sysBrightnessValue)
                 currentAppBrightnessValue = sysBrightnessValue
-                brightnessChanging = false
+                brightnessIsRestoring = false
                 isMaxBrightness = false
-                handler.removeCallbacks(this)
+                changeBrightnessHandler.removeCallbacks(this)
             }
         }
     }
-    handler.postDelayed(runnable, 0)
+    changeBrightnessHandler.postDelayed(changeToDefaultRunnable, 0)
     changeAppScreenBrightnessValue(sysBrightnessValue)
 }
