@@ -4,16 +4,21 @@ import android.database.ContentObserver
 import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
-import androidx.appcompat.app.AppCompatActivity
+import android.view.View
+import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.danhdueexoictif.androidgenericadapter.R
+import com.danhdueexoictif.androidgenericadapter.ui.base.BaseActivity
 import com.danhdueexoictif.androidgenericadapter.utils.brightness.BrightnessHelper
 import com.danhdueexoictif.androidgenericadapter.utils.brightness.changeAppScreenBrightnessValue
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private val brightnessUtils: BrightnessHelper by inject()
+
+    override val layoutId: Int = R.layout.activity_main
 
     /**
      * This observer listens for changes in system brightness settings and then sets its value for the Application's window.
@@ -34,8 +39,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         observerBrightnessChange()
+        findViewById<ViewGroup>(R.id.drawer).systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        setupViewModels()
     }
 
 
@@ -43,6 +50,15 @@ class MainActivity : AppCompatActivity() {
         // unregister brightness change from system settings.
         contentResolver?.unregisterContentObserver(brightnessObserver)
         super.onDestroy()
+    }
+
+    private fun setupViewModels() {
+        sharedViewModel.apply {
+            // observer to show required upgrade dialog
+            showRequiredUpgradeDialog.observe(this@MainActivity, Observer {
+                if (it == true) Timber.d("showRequiredUpgradeDialog")
+            })
+        }
     }
 
     /**

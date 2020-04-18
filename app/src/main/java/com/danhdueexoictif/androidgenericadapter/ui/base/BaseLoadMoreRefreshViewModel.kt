@@ -1,5 +1,6 @@
 package com.danhdueexoictif.androidgenericadapter.ui.base
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.danhdueexoictif.androidgenericadapter.data.remote.NetworkResponse
@@ -9,16 +10,18 @@ import timber.log.Timber
 abstract class BaseLoadMoreRefreshViewModel<Item> : BaseViewModel() {
 
     private var hasLoadMore = false
-    private var isLoadMore = false
+
+    @VisibleForTesting
+    var isLoadMore = false
     var currentPage = Constants.DEFAULT_FIRST_PAGE
 
     val listItem = MutableLiveData<ArrayList<Item>>()
-    val isRefreshing = MutableLiveData<Boolean>(false)
-    val isDataSetChanged = MutableLiveData<Boolean>(false)
+    val isRefreshing = MutableLiveData(false)
+    val isDataSetChanged = MutableLiveData(false)
     val isItemDataSetChanged = MutableLiveData<Int>()
-    val isShowNoResult = MutableLiveData<Boolean>(false)
-    val isShowReload = MutableLiveData<Boolean>(false)
-    val isLoadSuccess = MutableLiveData<Boolean>(false)
+    val isShowNoResult = MutableLiveData(false)
+    val isShowReload = MutableLiveData(false)
+    val isLoadSuccess = MutableLiveData(false)
     val isEmptyList = isLoadSuccess.map { it && listItem.value?.isNullOrEmpty() ?: false }
 
     fun firstLoad(showShimmer: Boolean = true) {
@@ -85,6 +88,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item> : BaseViewModel() {
     }
 
     protected fun <T : Any, U : Any> NetworkResponse<T, U>.handleErrors() {
+        isLoadFail.value = true
         if (currentPage == Constants.DEFAULT_FIRST_PAGE) {
             isShowShimmer.value = false
             isShowReload.value = true

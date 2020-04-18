@@ -1,23 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.danhdueexoictif.androidgenericadapter.ui.screen.sample.SampleViewModel" />
+
+        <variable
+            name="adapter"
+            type="com.danhdueexoictif.androidgenericadapter.ui.widgets.recyclerview.BaseRecyclerAdapter" />
     </data>
 
-    <FrameLayout
+    <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.danhdueexoictif.androidgenericadapter.ui.screen.sample.SampleFragment">
+        android:background="@drawable/regular"
+        android:orientation="vertical">
 
-        <TextView
+        <include layout="@layout/layout_header" />
+
+        <com.danhdueexoictif.androidgenericadapter.ui.widgets.recyclerview.CustomRecyclerView
+            android:id="@+id/recSamples"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Hello" />
+            android:background="@color/transparent"
+            android:focusable="false"
+            android:visibility="@{ viewModel.isLoadSuccess ? View.VISIBLE : View.GONE }"
+            tools:adapter="@{ adapter }"
+            tools:isDecorator="@{ false }"
+            tools:isRefreshing="@{ viewModel.isRefreshing }"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_newbie"
+            tools:loadMoreDisabled="@{ true }"
+            tools:visibility="visible" />
 
-    </FrameLayout>
+        <include
+            android:id="@+id/reload_data"
+            layout="@layout/layout_reload_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{ viewModel.isShowReload ? View.VISIBLE : View.GONE }"
+            app:viewModel="@{ viewModel }"
+            tools:visibility="gone" />
+
+    </LinearLayout>
 </layout>

@@ -6,6 +6,7 @@ import com.danhdueexoictif.androidgenericadapter.utils.Constants
  * Interface define methods that work with SharedPreference
  */
 interface SharedPreferenceHelper {
+
     /**
      * Save access token of user.
      */
@@ -17,30 +18,6 @@ interface SharedPreferenceHelper {
      * @return: [Constants.DEF_ACCESS_TOKEN] if we don't save, otherwise access token.
      */
     fun getAccessToken(): String
-
-    /**
-     * Save refresh token of user.
-     */
-    fun setRefreshToken(refreshToken: String)
-
-    /**
-     * Get refresh token of user.
-     *
-     * @return: [Constants.DEF_REFRESH_TOKEN] if we don't save, otherwise refresh token.
-     */
-    fun getRefreshToken(): String
-
-    /**
-     * Save expire duration of token.
-     */
-    fun setExpiresIn(expiresIn: Long)
-
-    /**
-     * Get expire duration of token.
-     *
-     * @return: [Constants.DEF_REFRESH_TOKEN] if we don't save, otherwise expire duration of token.
-     */
-    fun getExpiresIn(): Long
 
     /**
      * Save starting state of our app.
@@ -60,9 +37,9 @@ interface SharedPreferenceHelper {
      */
     fun getUUID(): String
 
-    fun setSettingLanguage(language: String)
+    fun setLocalSettingLanguage(language: String)
 
-    fun getSettingLanguage(value: String): String
+    fun getLocalSettingLanguage(value: String): String
 
     /**
      * Clear user information

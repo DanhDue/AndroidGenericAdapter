@@ -15,14 +15,11 @@ class SampleRepositoryImpl(
     private val apiService: ApiService,
     private val sharedPref: SharedPreferenceHelper
 ) : SampleRepository {
+
     override fun getNewbies(
         page: Int
     ): Deferred<NetworkResponse<NewBieResObject, *>> =
-        apiService.getNewbiesAsync(
-            sharedPref.getAccessToken().getAccessToken(),
-            sharedPref.getSettingLanguage("") ?: "",
-            page
-        )
+        apiService.getNewbiesAsync(sharedPref.getAccessToken().getAccessToken(), "", page)
 
     override fun createBrandMemberIdAsync(d3t3: String?): Deferred<NetworkResponse<MemberResObject, *>> =
         apiService.createBrandMemberIdAsync(

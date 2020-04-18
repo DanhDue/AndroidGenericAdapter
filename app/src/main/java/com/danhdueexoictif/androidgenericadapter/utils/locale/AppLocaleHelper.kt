@@ -26,13 +26,13 @@ class AppLocaleHelper(private val sharedPreferenceHelper: SharedPreferenceHelper
     }
 
     private fun getPersistedData(defaultLanguage: String): String {
-        val language = sharedPreferenceHelper.getSettingLanguage(defaultLanguage)
+        val language = sharedPreferenceHelper.getLocalSettingLanguage(defaultLanguage)
         return if (language.isNullOrEmpty()) Locale.getDefault().language else language
     }
 
     override fun persist(language: String) {
         if (!language.equals(Locale.getDefault().language, true)) {
-            sharedPreferenceHelper.setSettingLanguage(language)
+            sharedPreferenceHelper.setLocalSettingLanguage(language)
         }
     }
 

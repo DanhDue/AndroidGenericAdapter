@@ -1,14 +1,12 @@
 package com.danhdueexoictif.androidgenericadapter.ui.base
 
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.danhdueexoictif.androidgenericadapter.data.remote.NetworkResponse
 import com.danhdueexoictif.androidgenericadapter.utils.SingleLiveEvent
-import com.danhdueexoictif.androidgenericadapter.utils.controller.OnEventController.Companion.SHOW_UPGRADE_REQUIRED_DIALOG
-import timber.log.Timber
 
-class SharedViewModel : BaseViewModel() {
+class SharedViewModel : ViewModel() {
     var shouldNavigateToRoot = false
     var showToolbarHomeIconIsNeeded: Boolean? = false
     var mainTabOnBackPressFirstTime: Long = 0L
@@ -27,14 +25,6 @@ class SharedViewModel : BaseViewModel() {
     // LiveData support to show/hide NavigationView on Activity.
     val showDrawer = SingleLiveEvent<Boolean>()
 
-    override fun onEvent(eventType: Int, view: View?, data: Any?) {
-        super.onEvent(eventType, view, data)
-        when (eventType) {
-            SHOW_UPGRADE_REQUIRED_DIALOG -> {
-                Timber.d("SHOW_UPGRADE_REQUIRED_DIALOG")
-                showUpgradeRequiredDialog.value =
-                    data as NetworkResponse.ServerError<*>
-            }
-        }
-    }
+    // LiveData support to show/hide required upgrade dialog on Activity.
+    val showRequiredUpgradeDialog = SingleLiveEvent<Boolean>()
 }

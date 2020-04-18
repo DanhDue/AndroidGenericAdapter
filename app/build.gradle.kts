@@ -84,7 +84,7 @@ android {
             buildConfigField(
                     "String",
                     "BASE_URL",
-                    "\"https://www.danhdue.com/api/V1/\""
+                    "\"https://www.google.com/api/V1/\""
             )
             buildConfigField(
                     "String",
@@ -118,7 +118,7 @@ android {
             buildConfigField(
                     "String",
                     "BASE_URL",
-                    "\"https://www.danhdue.com/api/V1/\""
+                    "\"https://www.google.com/api/V1/\""
             )
             buildConfigField(
                     "String",
@@ -271,10 +271,15 @@ dependencies {
     implementation(Deps.circleindicator)
 
     // Testing
+    testImplementation(Deps.Kotlin.kotlintest)
+    testImplementation(Deps.Kotlin.kotlinxCoroutineTest)
+    testImplementation(Deps.Test.robolectric)
     testImplementation(Deps.Test.junit)
     androidTestImplementation(Deps.Test.testExt)
     androidTestImplementation(Deps.Test.espresso)
     implementation(Deps.Test.mockito)
+    testImplementation(Deps.Test.mockitoInline)
+    testImplementation(Deps.Test.mockitoKotlin)
     testImplementation(Deps.Test.mockk)
     testImplementation(Deps.Test.coreTesting)
     androidTestImplementation(Deps.Test.androidMockk)
@@ -306,9 +311,13 @@ tasks.register("fullCoverageReport", JacocoReport::class) {
             "**/BuildConfig.*",
             "**/Manifest*.*",
             "**/*Test*.*",
+            "**/*Directions*.*",
+            "**/*Args*.*",
             "**/android/**/*.*",
             "**/*Fragment.*",
+            "**/*Fragment*.*",
             "**/*Activity.*",
+            "**/*Activity*.*",
             "**/androidx/**/*.*",
             "**/com.facebook/**/*.*",
             "**/fabric/**/*.*",
@@ -316,12 +325,15 @@ tasks.register("fullCoverageReport", JacocoReport::class) {
             "**/*Companion.class",
             "**/org.koin/**/*.*",
             "**/databinding/*.*",
+            "**/*Kt*.*",
+            "**/com/bumptech/glide/**/*.*",
             "**/com/danhdueexoictif/androidgenericadapter/widgets/**/*.*",
             "**/com/danhdueexoictif/androidgenericadapter/generated/**/*.*",
             "**/com/danhdueexoictif/androidgenericadapter/data/bean/**/*.*",
             "**/com/danhdueexoictif/androidgenericadapter/data/remote/request/**/*.*",
             "**/com/danhdueexoictif/androidgenericadapter/data/remote/response/**/*.*",
             "**/com/danhdueexoictif/androidgenericadapter/di/**/*.*",
+            "**/com/danhdueexoictif/androidgenericadapter/utils/**/*.*",
             "**/com/danhdueexoictif/androidgenericadapter/ui/base/**/*.*"
     )
 

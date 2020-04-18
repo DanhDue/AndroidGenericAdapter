@@ -36,7 +36,9 @@ object Version {
     const val androidMockk = "1.9"
     const val mockk = "1.9.3"
     const val mockito = "2.27.0"
+    const val mockitoKotlin = "2.2.0"
     const val slf4j = "1.7.30"
+    const val robolectric = "4.3"
     const val multiDex = "2.0.1"
     const val toro = "3.7.0.2010003"
     const val firebase = "17.2.2"
@@ -85,6 +87,7 @@ object Deps {
         const val allopen = "org.jetbrains.kotlin:kotlin-allopen:${Version.kotlin}"
         const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Version.coroutines}"
         const val kotlintest = "io.kotlintest:kotlintest-runner-junit5:${Version.kotlintest}"
+        const val kotlinxCoroutineTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.coroutines}"
     }
 
     object Support {
@@ -125,7 +128,10 @@ object Deps {
         const val androidMockk = "io.mockk:mockk-android:${Version.androidMockk}"
         const val mockk = "io.mockk:mockk:${Version.mockk}"
         const val mockito = "org.mockito:mockito-core:${Version.mockito}"
+        const val mockitoInline = "org.mockito:mockito-inline:${Version.mockito}"
+        const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Version.mockitoKotlin}"
         const val slf4j = "org.slf4j:slf4j-simple:${Version.slf4j}"
+        const val robolectric = "org.robolectric:robolectric:${Version.robolectric}"
     }
 
     object Navigation {

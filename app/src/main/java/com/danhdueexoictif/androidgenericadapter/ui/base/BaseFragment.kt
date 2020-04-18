@@ -70,6 +70,13 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         super.onActivityCreated(savedInstanceState)
         observeField()
         loadingDialog = DialogUtils.createLoadingDialog(requireContext())
+        setupViewModels()
+    }
+
+    /**
+     * setup ViewModels
+     */
+    private fun setupViewModels() {
         viewModel.apply {
             obsError.observe(viewLifecycleOwner, Observer {
                 hideLoading()
@@ -84,6 +91,9 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
             noInternetConnectionEvent.observe(viewLifecycleOwner, Observer {})
             connectTimeoutEvent.observe(viewLifecycleOwner, Observer {})
             serverMaintainEvent.observe(viewLifecycleOwner, Observer {})
+            showRequiredUpgradeDialog.observe(viewLifecycleOwner, Observer {
+                sharedViewModel.showRequiredUpgradeDialog.value = true
+            })
         }
         sharedViewModel.apply {
             refreshDataIsNeeded.observe(

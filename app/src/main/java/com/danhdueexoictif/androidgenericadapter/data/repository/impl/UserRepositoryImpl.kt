@@ -16,9 +16,7 @@ class UserRepositoryImpl(private val sharedPref: SharedPreferenceHelper) : UserR
     /**
      * An implementation of [UserRepository.saveAppStartFirstTime]
      */
-    override fun saveAppStartFirstTime(firstTime: Boolean) {
-        sharedPref.setStartAppFirstTime(firstTime)
-    }
+    override fun saveAppStartFirstTime(firstTime: Boolean) = sharedPref.setStartAppFirstTime(firstTime)
 
     /**
      * An implementation of [UserRepository.isAppStartFirstTime]

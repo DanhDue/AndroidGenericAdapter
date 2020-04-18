@@ -10,6 +10,8 @@
         <item name="android:includeFontPadding">false</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="JapaneseTheme" parent="AppTheme">
