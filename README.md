@@ -98,6 +98,7 @@ Libraries Used
 [30]: https://square.github.io/retrofit/
 [31]: https://material.io/develop/android/
 [32]: http://robolectric.org/
+[33]: https://viblo.asia/p/calbacks-trong-ung-dung-android-RnB5pk87lPG
 
 Screenshots
 -----------
@@ -118,6 +119,7 @@ References
 * [Change Android Brightness.][19]
 * [Play Youtube videos on Androids.][20]
 * [ Setup Jacoco for Android Project.][21]
+* [Callbacks in Android Application.][33]
 
 License
 -------
