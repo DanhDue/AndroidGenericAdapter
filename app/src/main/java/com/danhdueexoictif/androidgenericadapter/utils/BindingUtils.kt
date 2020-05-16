@@ -1,5 +1,6 @@
 package com.danhdueexoictif.androidgenericadapter.utils
 
+import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -174,6 +175,32 @@ fun setTouchListener(self: View, value: Boolean) {
         }
         false
     }
+}
+
+@BindingAdapter("onSingleTouch")
+@SuppressLint("ClickableViewAccessibility")
+fun View.setSingleTouch(execution: () -> Unit) {
+    setOnTouchListener(object : View.OnTouchListener {
+        var lastClickTime: Long = 0
+        override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+            if (SystemClock.elapsedRealtime() - lastClickTime < Constants.THRESHOLD_CLICK_TIME) {
+                return false
+            }
+            when (event?.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    alpha = 0.5f
+                    return true
+                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    alpha = 1f
+                    execution.invoke()
+                    lastClickTime = SystemClock.elapsedRealtime()
+                    return true
+                }
+            }
+            return false
+        }
+    })
 }
 
 @BindingAdapter("onSingleClick")

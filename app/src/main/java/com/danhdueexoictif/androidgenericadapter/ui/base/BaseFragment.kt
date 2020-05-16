@@ -88,12 +88,14 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
                 }
             })
             isLoading.observe(viewLifecycleOwner, Observer { handleShowLoading(it == true) })
-            noInternetConnectionEvent.observe(viewLifecycleOwner, Observer {})
+            noInternetConnectionEvent.observe(
+                viewLifecycleOwner,
+                Observer { sharedViewModel.showNoInternetDialog.call() })
             connectTimeoutEvent.observe(viewLifecycleOwner, Observer {})
             serverMaintainEvent.observe(viewLifecycleOwner, Observer {})
-            showRequiredUpgradeDialog.observe(viewLifecycleOwner, Observer {
-                sharedViewModel.showRequiredUpgradeDialog.value = true
-            })
+            showRequiredUpgradeDialog.observe(
+                viewLifecycleOwner,
+                Observer { sharedViewModel.showRequiredUpgradeDialog.call() })
         }
         sharedViewModel.apply {
             refreshDataIsNeeded.observe(

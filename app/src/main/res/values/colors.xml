@@ -21,4 +21,9 @@
     <color name="line_gray">#ced2d5</color>
     <color name="dark_blue_50">#80081f2c</color>
     <color name="black_50">#80000000</color>
+    <color name="flat_grey_dark_1">#34495e</color>
+    <color name="flat_grey_dark_2">#2c3e50</color>
+    <color name="flat_grey_light_1">#ecf0f1</color>
+    <color name="flat_grey_normal_1">#95a5a6</color>
+    <color name="ebony_clay">#24253D</color>
 </resources>

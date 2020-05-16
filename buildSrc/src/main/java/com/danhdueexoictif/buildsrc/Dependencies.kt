@@ -56,6 +56,7 @@ object Version {
     const val crashlytics = "2.10.1@aar"
     const val firebaseCore = "17.2.2"
     const val ossLicenses = "17.0.0"
+    const val lottie = "3.4.0"
 }
 
 object BuildVersions {
@@ -198,4 +199,5 @@ object Deps {
 
     const val pagerIndicator = "com.romandanylyk:pageindicatorview:${Version.pagerIndicator}"
     const val circleindicator = "me.relex:circleindicator:${Version.circleindicator}"
+    const val lottie = "com.airbnb.android:lottie:${Version.lottie}"
 }

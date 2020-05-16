@@ -7,6 +7,7 @@ import android.provider.Settings
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.danhdueexoictif.androidgenericadapter.R
 import com.danhdueexoictif.androidgenericadapter.ui.base.BaseActivity
 import com.danhdueexoictif.androidgenericadapter.utils.brightness.BrightnessHelper
@@ -56,7 +57,12 @@ class MainActivity : BaseActivity() {
         sharedViewModel.apply {
             // observer to show required upgrade dialog
             showRequiredUpgradeDialog.observe(this@MainActivity, Observer {
-                if (it == true) Timber.d("showRequiredUpgradeDialog")
+                Timber.d("showRequiredUpgradeDialog")
+                findNavController(R.id.container).navigate(R.id.forcedUpgradeDialogDest)
+            })
+            // observer to show OopsNoInternetDialog
+            showNoInternetDialog.observe(this@MainActivity, Observer {
+                findNavController(R.id.container).navigate(R.id.navigateToNoInternetDialog)
             })
         }
     }

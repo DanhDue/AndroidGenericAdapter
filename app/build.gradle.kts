@@ -270,6 +270,9 @@ dependencies {
     implementation(Deps.pagerIndicator)
     implementation(Deps.circleindicator)
 
+    // lottie
+    implementation(Deps.lottie)
+
     // Testing
     testImplementation(Deps.Kotlin.kotlintest)
     testImplementation(Deps.Kotlin.kotlinxCoroutineTest)

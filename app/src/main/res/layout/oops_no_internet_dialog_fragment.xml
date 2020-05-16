@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.danhdueexoictif.androidgenericadapter.ui.widgets.oopsnointernet.OopsNoInternetDialogViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="@color/transparent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="@dimen/dp_320"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/flat_grey_light_1"
+            app:cardCornerRadius="@dimen/dp_8"
+            app:cardElevation="@dimen/dp_8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:context="jp.co.shiseido.cledepeaubeaute.ui.widgets.OopsNoInternetDialogFragment">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dp_24"
+                android:paddingEnd="@dimen/dp_24"
+                android:paddingBottom="@dimen/dp_24">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/title"
+                    style="@style/Widget.MaterialComponents.TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_24"
+                    android:text="@string/txt_no_internet_connection_title"
+                    android:textAlignment="center"
+                    android:textColor="@color/flat_grey_dark_2"
+                    android:textSize="@dimen/sp_18"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/noNetworkMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_7"
+                    android:text="@string/txt_no_internet_connection_message"
+                    android:textAlignment="center"
+                    android:textColor="@color/flat_grey_dark_1"
+                    android:textSize="@dimen/sp_16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/airPlaneIsOnMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_7"
+                    android:text="@string/air_plane_is_on_message"
+                    android:textAlignment="center"
+                    android:textColor="@color/flat_grey_dark_1"
+                    android:textSize="@dimen/sp_16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/imgAirplane"
+                    android:layout_width="@dimen/dp_68"
+                    android:layout_height="@dimen/dp_68"
+                    android:layout_marginTop="@dimen/dp_7"
+                    android:scaleType="centerCrop"
+                    android:tint="@color/flat_grey_normal_1"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/airPlaneIsOnMessage"
+                    app:lottie_autoPlay="true"
+                    app:lottie_fileName="airplane.json"
+                    app:lottie_loop="true"
+                    app:lottie_repeatMode="reverse" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvPleaseTurnOn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_7"
+                    android:text="@string/please_turn_on_message"
+                    android:textAlignment="center"
+                    android:textColor="@color/flat_grey_dark_2"
+                    android:textSize="@dimen/sp_14"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/noNetworkMessage" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/butOpenMobileDataSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_7"
+                    android:text="@string/txt_mobile_data"
+                    android:textSize="@dimen/sp_14"
+                    app:cornerRadius="@dimen/dp_100"
+                    app:icon="@drawable/ic_swap_vert"
+                    app:iconSize="@dimen/dp_18"
+                    app:layout_constraintEnd_toStartOf="@+id/butOpenWifiSettings"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvPleaseTurnOn" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/butOpenWifiSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_7"
+                    android:text="@string/txt_wifi"
+                    android:textSize="@dimen/sp_14"
+                    app:cornerRadius="@dimen/dp_100"
+                    app:icon="@drawable/ic_swap_vert"
+                    app:iconSize="@dimen/dp_18"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/butOpenMobileDataSettings"
+                    app:layout_constraintTop_toBottomOf="@id/tvPleaseTurnOn" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvPleaseTurnOff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_7"
+                    android:text="@string/please_turn_off_message"
+                    android:textColor="@color/flat_grey_dark_2"
+                    android:textSize="@dimen/sp_14"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imgAirplane" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/butOpenAirPlaneSettings"
+                    style="@style/TextAppearance.MaterialComponents.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_7"
+                    android:text="@string/airplane_mode"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/sp_14"
+                    app:cornerRadius="@dimen/dp_100"
+                    app:icon="@drawable/ic_airplanemode_inactive"
+                    app:iconSize="@dimen/dp_18"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvPleaseTurnOff" />
+
+                <androidx.constraintlayout.widget.Group
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{ viewModel.airPlanIsOn ? View.GONE : View.VISIBLE  }"
+                    app:constraint_referenced_ids="noNetworkMessage, tvPleaseTurnOn, butOpenWifiSettings, butOpenMobileDataSettings"
+                    tools:visibility="gone" />
+
+                <androidx.constraintlayout.widget.Group
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{ viewModel.airPlanIsOn ? View.VISIBLE : View.GONE  }"
+                    app:constraint_referenced_ids="imgAirplane, airPlaneIsOnMessage, tvPleaseTurnOff, butOpenAirPlaneSettings"
+                    tools:visibility="visible" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

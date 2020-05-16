@@ -25,4 +25,14 @@
     <string name="txt_login_register">ログイン・会員登録</string>
     <string name="txt_skin_measurement">肌測定</string>
     <string name="txt_for_you">FOR YOU</string>
+    <string name="please_turn_on_message">オンにしてください</string>
+    <string name="please_turn_off_message">消してください</string>
+    <string name="txt_mobile_data">モバイルデータ</string>
+    <string name="txt_wifi">Wifi</string>
+    <string name="airplane_mode">Airplane mode</string>
+    <string name="connection_is_turned_off">接続をオフしました</string>
+    <string name="air_plane_is_on_message">機内モードをオンにしました。</string>
+    <string name="agree">同意</string>
+    <string name="update_title">強制アップデート</string>
+    <string name="update_description">アプリケーションにはすでに新しいバージョンがあります\nAppStore / Google Playで更新してください</string>
 </resources>

@@ -21,6 +21,23 @@
         app:popEnterAnim="@anim/anim_fade_in"
         app:popExitAnim="@anim/anim_shrink_fade_out_from_bottom" />
 
+    <action
+        android:id="@+id/navigateToNoInternetDialog"
+        app:destination="@id/noInternetDialogDest"
+        app:enterAnim="@anim/anim_grow_fade_in_from_bottom"
+        app:exitAnim="@anim/anim_fade_out"
+        app:popEnterAnim="@anim/anim_fade_in"
+        app:popExitAnim="@anim/anim_shrink_fade_out_from_bottom" />
+
+
+    <action
+        android:id="@+id/navigateToForcedUpgradeDialog"
+        app:destination="@id/forcedUpgradeDialogDest"
+        app:enterAnim="@anim/anim_grow_fade_in_from_bottom"
+        app:exitAnim="@anim/anim_fade_out"
+        app:popEnterAnim="@anim/anim_fade_in"
+        app:popExitAnim="@anim/anim_shrink_fade_out_from_bottom" />
+
     <fragment
         android:id="@+id/homeDest"
         android:name="com.danhdueexoictif.androidgenericadapter.ui.screen.home.HomeFragment"
@@ -42,5 +59,16 @@
         android:id="@+id/splash_dest"
         android:name="com.danhdueexoictif.androidgenericadapter.ui.screen.splash.SplashFragment"
         tools:layout="@layout/splash_fragment" />
+
+    <dialog
+        android:id="@+id/noInternetDialogDest"
+        android:name="com.danhdueexoictif.androidgenericadapter.ui.widgets.oopsnointernet.OopsNoInternetDialogFragment"
+        tools:layout="@layout/oops_no_internet_dialog_fragment" />
+
+
+    <dialog
+        android:id="@+id/forcedUpgradeDialogDest"
+        android:name="com.danhdueexoictif.androidgenericadapter.ui.widgets.forcedupgrade.ForcedUpgradeDialogFragment"
+        tools:layout="@layout/forced_upgrade_dialog_fragment" />
 
 </navigation>

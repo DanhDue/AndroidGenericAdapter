@@ -24,13 +24,13 @@ abstract class BaseViewModel : ViewModel(), OnEventController, KoinComponent {
     val isLoading = SingleLiveEvent<Boolean>()
     val obsError = MutableLiveData<String>()
     val serverErrorResponse = MutableLiveData<ErrorResponse>()
-    val noInternetConnectionEvent = SingleLiveEvent<String>()
+    val noInternetConnectionEvent = SingleLiveEvent<Unit>()
     val connectTimeoutEvent = SingleLiveEvent<Unit>()
     val serverMaintainEvent = SingleLiveEvent<Unit>()
     var isLoadFail = SingleLiveEvent<Boolean>().apply { value = false }
 
     // LiveData support to show/hide required upgrade dialog on Activity.
-    val showRequiredUpgradeDialog = SingleLiveEvent<Boolean>()
+    val showRequiredUpgradeDialog = SingleLiveEvent<Unit>()
 
     init {
         Timber.d("init()")
@@ -52,9 +52,7 @@ abstract class BaseViewModel : ViewModel(), OnEventController, KoinComponent {
         when (this) {
             is NetworkResponse.ServerError -> {
                 Timber.d("NetworkResponse.ServerError")
-                if (code == HttpResponseCode.HTTP_UPGRADE_REQUIRED) {
-                    showRequiredUpgradeDialog.value = true
-                }
+                if (code == HttpResponseCode.HTTP_UPGRADE_REQUIRED) { showRequiredUpgradeDialog.call() }
             }
             is NetworkResponse.NetworkError -> {
                 Timber.d("NetworkResponse.NetworkError")
@@ -62,13 +60,9 @@ abstract class BaseViewModel : ViewModel(), OnEventController, KoinComponent {
                     is SocketTimeoutException -> {
                         Timber.d("SocketTimeoutException")
                     }
-                    is NoConnectivityException -> {
-                        Timber.d("NoConnectivityException")
-                        noInternetConnectionEvent.value = error.message
-                    }
+                    is NoConnectivityException -> { noInternetConnectionEvent.call() }
                     is UnknownHostException -> {
                         // Show common error
-
                     }
                     else -> {
                         // Show common error

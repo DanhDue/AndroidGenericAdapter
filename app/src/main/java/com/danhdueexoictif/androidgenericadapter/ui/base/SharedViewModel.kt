@@ -26,5 +26,8 @@ class SharedViewModel : ViewModel() {
     val showDrawer = SingleLiveEvent<Boolean>()
 
     // LiveData support to show/hide required upgrade dialog on Activity.
-    val showRequiredUpgradeDialog = SingleLiveEvent<Boolean>()
+    val showRequiredUpgradeDialog = SingleLiveEvent<Unit>()
+
+    // LiveData supporting to show the NoInternetDialog
+    var showNoInternetDialog = SingleLiveEvent<Unit>()
 }
