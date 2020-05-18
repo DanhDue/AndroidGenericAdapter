@@ -9,7 +9,7 @@ import com.danhdueexoictif.androidgenericadapter.data.remote.invoke
 import com.danhdueexoictif.androidgenericadapter.utils.controller.OnEventController
 import com.danhdueexoictif.androidgenericadapter.utils.controller.ViewObservable
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 abstract class BaseActivity : AppCompatActivity(), OnEventController {

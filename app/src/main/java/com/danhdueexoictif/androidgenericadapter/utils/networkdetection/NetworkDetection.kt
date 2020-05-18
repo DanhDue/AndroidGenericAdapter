@@ -13,19 +13,27 @@ import androidx.lifecycle.LiveData
 
 @Suppress("DEPRECATION")
 class NetworkDetection internal constructor(
-    private val connectivityManager: ConnectivityManager
+    private val connectivityManager: ConnectivityManager,
+    private val telephonyManager: TelephonyManager
 ) : LiveData<ConnectionState>() {
 
     var currentWifiNetwork: Int = 0
 
     @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
-    constructor(application: Application) : this(application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
+    constructor(application: Application) : this(
+        application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager,
+        application.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+    )
 
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
+        val networkInfoSubtype = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
+            telephonyManager.networkType
+        } else {
+            connectivityManager.activeNetworkInfo?.subtype
+        }
         override fun onAvailable(network: Network?) {
-            val networkInfoSubtype = connectivityManager.activeNetworkInfo?.subtype
             // this ternary operation is not quite true, because non-metered doesn't yet mean, that it's wifi
-            // nevertheless, for simplicity let's assume that's trueo
+            // nevertheless, for simplicity let's assume that's true
             if (connectivityManager.isActiveNetworkMetered) {
                 postState(ConnectionDef.MOBILE_DATA, true, networkInfoSubtype)
             } else {
@@ -36,7 +44,6 @@ class NetworkDetection internal constructor(
 
         override fun onLost(network: Network?) {
             network?.apply {
-                val networkInfoSubtype = connectivityManager.activeNetworkInfo?.subtype
                 if (network.hashCode() == currentWifiNetwork) {
                     postState(ConnectionDef.WIFI_DATA, false, networkInfoSubtype)
                 } else {
@@ -48,40 +55,34 @@ class NetworkDetection internal constructor(
 
     override fun onActive() {
         super.onActive()
-        val networkInfo = connectivityManager.activeNetworkInfo
-        if (networkInfo != null) {
-            if (networkInfo.isConnected) {
-                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
-                    val networkCapabilities =
-                        connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-                    // NET_CAPABILITY_VALIDATED - Indicates that connectivity on this network was successfully validated.
-                    // NET_CAPABILITY_INTERNET - Indicates that this network should be able to reach the internet.
-                    networkCapabilities.let {
-                        if (it.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                            && it.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
-                        ) {
-                            if (it.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                                postState(ConnectionDef.WIFI_DATA, true, networkInfo.subtype)
-                            } else if (it.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                                postState(ConnectionDef.MOBILE_DATA, true, networkInfo.subtype)
-                            }
-                        }
-                    }
-                } else {
-                    when (networkInfo.type) {
-                        ConnectivityManager.TYPE_WIFI -> {
-                            postState(ConnectionDef.WIFI_DATA, true, networkInfo.subtype)
-                        }
-                        ConnectivityManager.TYPE_MOBILE -> {
-                            postState(ConnectionDef.MOBILE_DATA, true, networkInfo.subtype)
-                        }
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
+            val networkCapabilities =
+                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            // NET_CAPABILITY_VALIDATED - Indicates that connectivity on this network was successfully validated.
+            // NET_CAPABILITY_INTERNET - Indicates that this network should be able to reach the internet.
+            networkCapabilities?.let {
+                if (it.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                    && it.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
+                ) {
+                    if (it.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                        postState(ConnectionDef.WIFI_DATA, true, telephonyManager.networkType)
+                    } else if (it.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                        postState(ConnectionDef.MOBILE_DATA, true, telephonyManager.networkType)
                     }
                 }
-            } else {
-                postState(ConnectionDef.NO_CONNECTION, false, networkInfo.subtype)
-            }
+            } ?: run { postState(ConnectionDef.NO_CONNECTION, false, TelephonyManager.NETWORK_TYPE_UNKNOWN) }
         } else {
-            postState(ConnectionDef.NO_CONNECTION, false, null)
+            val networkInfo = connectivityManager.activeNetworkInfo
+            networkInfo?.let {
+                when (networkInfo.type) {
+                    ConnectivityManager.TYPE_WIFI -> {
+                        postState(ConnectionDef.WIFI_DATA, true, networkInfo.subtype)
+                    }
+                    ConnectivityManager.TYPE_MOBILE -> {
+                        postState(ConnectionDef.MOBILE_DATA, true, networkInfo.subtype)
+                    }
+                }
+            } ?: run { postState(ConnectionDef.NO_CONNECTION, false, TelephonyManager.NETWORK_TYPE_UNKNOWN) }
         }
         registerNetworkCallback()
     }

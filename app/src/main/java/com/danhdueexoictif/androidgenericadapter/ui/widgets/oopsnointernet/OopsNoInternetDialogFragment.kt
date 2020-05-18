@@ -13,7 +13,7 @@ import com.danhdueexoictif.androidgenericadapter.utils.networkdetection.NetworkD
 import com.danhdueexoictif.androidgenericadapter.utils.networkdetection.NoInternetUtils
 import com.danhdueexoictif.androidgenericadapter.utils.setSingleTouch
 import kotlinx.android.synthetic.main.oops_no_internet_dialog_fragment.*
-import org.koin.androidx.viewmodel.ext.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class OopsNoInternetDialogFragment :

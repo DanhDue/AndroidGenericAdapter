@@ -16,7 +16,7 @@ import androidx.fragment.app.DialogFragment
 import com.danhdueexoictif.androidgenericadapter.utils.analytic.LoggingHelper
 import com.danhdueexoictif.androidgenericadapter.utils.controller.OnEventController
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import com.danhdueexoictif.androidgenericadapter.BR
 
 abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> :

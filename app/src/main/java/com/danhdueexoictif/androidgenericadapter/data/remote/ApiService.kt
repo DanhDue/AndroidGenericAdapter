@@ -37,11 +37,9 @@ interface ApiService {
         @Field("fcmToken") fcmToken: String?
     ): NetworkResponse<LogoutResponse, ErrorResponse>
 
-    @GET("sample")
+    @GET("SWFR01011991.seam")
     fun getNewbiesAsync(
-        @Header("Authorization") token: String? = null,
-        @Query("lang") language: String,
-        @Query("page") page: Int
+        @Header("Authorization") token: String? = null
     ): Deferred<NetworkResponse<NewBieResObject, ErrorResponse>>
 
     /**

@@ -16,6 +16,7 @@ object Constants {
     const val THRESHOLD_MOVE_SELECTION_STATE_CHANGE_TIME = 300
     const val LOADING_DIALOG_DISMISS_DELAY_TIME = 3000L
     const val CLOSE_APP_DELAY_TIME = 2000L
+    const val DOUBLE_CHECK_CONNECTION_TIME_OUT = 1500
 
     const val REGEX_EXCLUDE_HIRAGANA = """;[^}]+\}"""
 

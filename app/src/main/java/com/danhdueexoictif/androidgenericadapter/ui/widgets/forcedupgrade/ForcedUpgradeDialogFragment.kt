@@ -9,7 +9,7 @@ import com.danhdueexoictif.androidgenericadapter.databinding.ForcedUpgradeDialog
 import com.danhdueexoictif.androidgenericadapter.ui.base.BaseDialogFragment
 import com.danhdueexoictif.androidgenericadapter.utils.setSingleClick
 import kotlinx.android.synthetic.main.forced_upgrade_dialog_fragment.*
-import org.koin.androidx.viewmodel.ext.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ForcedUpgradeDialogFragment :
     BaseDialogFragment<ForcedUpgradeDialogFragmentBinding, ForcedUpgradeDialogViewModel>() {

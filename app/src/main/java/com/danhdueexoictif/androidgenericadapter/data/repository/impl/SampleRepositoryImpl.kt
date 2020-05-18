@@ -19,7 +19,7 @@ class SampleRepositoryImpl(
     override fun getNewbies(
         page: Int
     ): Deferred<NetworkResponse<NewBieResObject, *>> =
-        apiService.getNewbiesAsync(sharedPref.getAccessToken().getAccessToken(), "", page)
+        apiService.getNewbiesAsync(sharedPref.getAccessToken().getAccessToken())
 
     override fun createBrandMemberIdAsync(d3t3: String?): Deferred<NetworkResponse<MemberResObject, *>> =
         apiService.createBrandMemberIdAsync(

@@ -20,6 +20,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.KoinComponent
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -28,19 +29,26 @@ import java.util.concurrent.TimeUnit
 
 val networkModule = module {
     single { createOkHttpCache(get()) }
-    single(name = "logging") { createLoggingInterceptor() }
-    single(name = "basicAuth") {
+    single(named("logging")) { createLoggingInterceptor() }
+    single(named("basicAuth")) {
         createBaseAuthInterceptor(
             get(),
             BuildConfig.BASE_AUTH_USER_NAME,
             BuildConfig.BASE_AUTH_PASSWORD
         )
     }
-    single { ApiServiceHolder() }
+    single<Interceptor>(named("mockInterceptor")) { MockInterceptor(get()) }
+    single { ChangeableBaseUrlInterceptor() }
     single { NetworkAdapterFactory() }
-    single { createOkHttpClient(get(), get(name = "logging"), get(name = "basicAuth")) }
+    single {
+        createOkHttpClient(
+            get(), get(named("logging")), get(named("basicAuth")), get(), get(
+                named("mockInterceptor")
+            )
+        )
+    }
     single { createAppRetrofit(get(), get(), true) }
-    single { createApiService(get(), get()) }
+    single { createApiService(get()) }
 }
 
 object NetworkModule : KoinComponent {
@@ -83,14 +91,17 @@ object NetworkModule : KoinComponent {
     fun createOkHttpClient(
         cache: Cache?,
         logging: Interceptor,
-        basicAuthInterceptor: Interceptor
+        basicAuthInterceptor: Interceptor,
+        changeableBaseUrlInterceptor: ChangeableBaseUrlInterceptor,
+        mockInterceptor: Interceptor
     ): OkHttpClient = OkHttpClient.Builder().apply {
         connectTimeout(TIMEOUT.toLong(), TimeUnit.SECONDS)
         readTimeout(TIMEOUT.toLong(), TimeUnit.SECONDS)
         addInterceptor(basicAuthInterceptor)
         addInterceptor(logging)
+        addInterceptor(changeableBaseUrlInterceptor)
         // mock data for the APIs while a particular API is not implemented yet on Backend side.
-        if (BuildConfig.DEBUG) addInterceptor(MockInterceptor())
+        if (BuildConfig.DEBUG) addInterceptor(mockInterceptor)
         if (cache != null) {
             cache(cache)
         }
@@ -106,13 +117,11 @@ object NetworkModule : KoinComponent {
         }
         addConverterFactory(ScalarsConverterFactory.create())
         addConverterFactory(GsonConverterFactory.create())
-        baseUrl(BuildConfig.BASE_URL)
+        baseUrl(BuildConfig.CONFIGURATION_DOMAIN)
         client(okHttpClient)
     }.build()
 
-    fun createApiService(retrofit: Retrofit, apiServiceHolder: ApiServiceHolder): ApiService {
-        val apiService = retrofit.create(ApiService::class.java)
-        apiServiceHolder.apiService = apiService
-        return apiService
+    fun createApiService(retrofit: Retrofit): ApiService {
+        return retrofit.create(ApiService::class.java)
     }
 }

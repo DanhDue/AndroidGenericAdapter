@@ -1,0 +1,57 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "avatar": "https://img.freepik.com/free-vector/icons-big-data-background_23-2148006396.jpg",
+      "userName": "Nguyễn Hữu Công",
+      "unit": "Android Developer - Unit 2",
+      "quote": "Hi vọng trong thời gian đồng hành cùng Sun*, tôi sẽ cùng Sun* tạo ra những sản phẩm sáng tạo, xây dựng môi trường ..."
+    },
+    {
+      "id": 2,
+      "avatar": "https://img.freepik.com/free-vector/icons-big-data-background_23-2148006396.jpg",
+      "userName": "Nguyễn Thị Thu Thảo",
+      "unit": "Copywriter - HR Unit",
+      "quote": "Trước mắt, khi trở thành nhân viên của Bộ phận Truyền thông nội bộ, tôi muốn đóng góp chất xám của mình để bộ phận …."
+    },
+    {
+      "id": 3,
+      "avatar": "https://img.freepik.com/free-vector/icons-big-data-background_23-2148006396.jpg",
+      "userName": "Nguyễn Trung Thành",
+      "unit": "PHP Developer - R&D Unit",
+      "quote": "Mình muốn tạo ra nhiều hơn sự vui vẻ và hạnh phúc cho những người xung quanh, khi mỗi hạt nhân trong ..."
+    },
+    {
+      "id": 4,
+      "avatar": "https://img.freepik.com/free-vector/icons-big-data-background_23-2148006396.jpg",
+      "userName": "Nguyễn Hữu Công",
+      "unit": "Android Developer - Unit 2",
+      "quote": "Hi vọng trong thời gian đồng hành cùng Sun*, tôi sẽ cùng Sun* tạo ra những sản phẩm sáng tạo, xây dựng môi trường ..."
+    },
+    {
+      "id": 5,
+      "avatar": "https://img.freepik.com/free-vector/icons-big-data-background_23-2148006396.jpg",
+      "userName": "Nguyễn Hữu Công",
+      "unit": "Android Developer - Unit 2",
+      "quote": "Hi vọng trong thời gian đồng hành cùng Sun*, tôi sẽ cùng Sun* tạo ra những sản phẩm sáng tạo, xây dựng môi trường ..."
+    },
+    {
+      "id": 6,
+      "avatar": "https://img.freepik.com/free-vector/icons-big-data-background_23-2148006396.jpg",
+      "userName": "Nguyễn Hữu Công",
+      "unit": "Android Developer - Unit 2",
+      "quote": "Hi vọng trong thời gian đồng hành cùng Sun*, tôi sẽ cùng Sun* tạo ra những sản phẩm sáng tạo, xây dựng môi trường ..."
+    },
+    {
+      "id": 7,
+      "avatar": "https://img.freepik.com/free-vector/icons-big-data-background_23-2148006396.jpg",
+      "userName": "Nguyễn Hữu Công",
+      "unit": "Android Developer - Unit 2",
+      "quote": "Hi vọng trong thời gian đồng hành cùng Sun*, tôi sẽ cùng Sun* tạo ra những sản phẩm sáng tạo, xây dựng môi trường ..."
+    }
+  ],
+  "error": {
+    "code": 123,
+    "message": "DanhDue ExOICIF"
+  }
+}

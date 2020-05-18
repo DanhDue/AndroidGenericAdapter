@@ -138,6 +138,11 @@ android {
                     "SITE_SERIAL",
                     "\"HDN9DanhDueExOICTIFvSAt3HqfFz5DJDZT3yzRzl592FWFQd9l954N76W7Z81ZNIwm\""
             )
+            buildConfigField(
+                "String",
+                "CONFIGURATION_DOMAIN",
+                "\"https://www.google.com/api/V1/\""
+            )
         }
     }
 

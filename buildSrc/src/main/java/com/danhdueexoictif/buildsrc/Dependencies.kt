@@ -6,7 +6,7 @@ object Version {
     const val kotlintest = "3.4.2"
     const val room = "2.2.1"
     const val timber = "4.7.1"
-    const val koin = "2.0.0-beta-1"
+    const val koin = "2.1.5"
     const val appCompat = "1.2.0-alpha01"
     const val material = "1.2.0-alpha01"
     const val constraintLayout = "1.1.3"

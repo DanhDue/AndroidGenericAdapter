@@ -24,7 +24,7 @@ import com.danhdueexoictif.androidgenericadapter.utils.controller.OnEventControl
 import com.danhdueexoictif.androidgenericadapter.utils.extension.hideKeyBoard
 import com.danhdueexoictif.androidgenericadapter.utils.showDialog
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
 abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> :

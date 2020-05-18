@@ -83,6 +83,21 @@ inline fun <reified T> getObjectFromJsonFile(assets: AssetManager, fileName: Str
 
 }
 
+fun getJsonStringFromFile(assets: AssetManager, fileName: String): String {
+    var json = ""
+    try {
+        val inputStream = assets.open(fileName)
+        val size = inputStream.available()
+        val buffer = ByteArray(size)
+        inputStream.read(buffer)
+        inputStream.close()
+        json = String(buffer, Charsets.UTF_8)
+    } catch (e: IOException) {
+        e.printStackTrace()
+    }
+    return json
+}
+
 fun dpToPx(dp: Int): Int {
     val metrics = Resources.getSystem().displayMetrics
     return dp * (metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)

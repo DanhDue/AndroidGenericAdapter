@@ -1,7 +1,9 @@
 package com.danhdueexoictif.androidgenericadapter.data.remote
 
+import android.content.res.AssetManager
 import com.danhdueexoictif.androidgenericadapter.BuildConfig
 import com.danhdueexoictif.androidgenericadapter.data.remote.response.HttpResponseCode.HTTP_OK
+import com.danhdueexoictif.androidgenericadapter.utils.extension.getJsonStringFromFile
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.Protocol
@@ -12,13 +14,13 @@ import okhttp3.ResponseBody.Companion.toResponseBody
  * This will help us to test our networking code while a particular API is not implemented
  * yet on Backend side.
  */
-class MockInterceptor : Interceptor {
+class MockInterceptor(private val assets: AssetManager) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         if (BuildConfig.DEBUG) {
             val uri = chain.request().url.toUri().toString()
             val responseString = when {
-                uri.endsWith("sample?lang=&page=1") -> getListOfSampleData
+                uri.endsWith(SAMPLE_REQUEST) -> getJsonStringFromFile(assets, MOCK_SAMPLE_RESPONSE_FILE_NAME)
                 else -> ""
             }
 
@@ -46,64 +48,9 @@ class MockInterceptor : Interceptor {
         }
     }
 
-}
-
-const val getListOfSampleData = """
-{
-  "data": [
-    {
-      "id": 1,
-      "avatar": "https://img.freepik.com/free-vector/icons-big-data-background_23-2148006396.jpg",
-      "userName": "Nguyễn Hữu Công",
-      "unit": "Android Developer - Unit 2",
-      "quote": "Hi vọng trong thời gian đồng hành cùng Sun*, tôi sẽ cùng Sun* tạo ra những sản phẩm sáng tạo, xây dựng môi trường ..."
-    },
-    {
-      "id": 2,
-      "avatar": "https://img.freepik.com/free-vector/icons-big-data-background_23-2148006396.jpg",
-      "userName": "Nguyễn Thị Thu Thảo",
-      "unit": "Copywriter - HR Unit",
-      "quote": "Trước mắt, khi trở thành nhân viên của Bộ phận Truyền thông nội bộ, tôi muốn đóng góp chất xám của mình để bộ phận …."
-    },
-    {
-      "id": 3,
-      "avatar": "https://img.freepik.com/free-vector/icons-big-data-background_23-2148006396.jpg",
-      "userName": "Nguyễn Trung Thành",
-      "unit": "PHP Developer - R&D Unit",
-      "quote": "Mình muốn tạo ra nhiều hơn sự vui vẻ và hạnh phúc cho những người xung quanh, khi mỗi hạt nhân trong ..."
-    },
-    {
-      "id": 4,
-      "avatar": "https://img.freepik.com/free-vector/icons-big-data-background_23-2148006396.jpg",
-      "userName": "Nguyễn Hữu Công",
-      "unit": "Android Developer - Unit 2",
-      "quote": "Hi vọng trong thời gian đồng hành cùng Sun*, tôi sẽ cùng Sun* tạo ra những sản phẩm sáng tạo, xây dựng môi trường ..."
-    },
-    {
-      "id": 5,
-      "avatar": "https://img.freepik.com/free-vector/icons-big-data-background_23-2148006396.jpg",
-      "userName": "Nguyễn Hữu Công",
-      "unit": "Android Developer - Unit 2",
-      "quote": "Hi vọng trong thời gian đồng hành cùng Sun*, tôi sẽ cùng Sun* tạo ra những sản phẩm sáng tạo, xây dựng môi trường ..."
-    },
-    {
-      "id": 6,
-      "avatar": "https://img.freepik.com/free-vector/icons-big-data-background_23-2148006396.jpg",
-      "userName": "Nguyễn Hữu Công",
-      "unit": "Android Developer - Unit 2",
-      "quote": "Hi vọng trong thời gian đồng hành cùng Sun*, tôi sẽ cùng Sun* tạo ra những sản phẩm sáng tạo, xây dựng môi trường ..."
-    },
-    {
-      "id": 7,
-      "avatar": "https://img.freepik.com/free-vector/icons-big-data-background_23-2148006396.jpg",
-      "userName": "Nguyễn Hữu Công",
-      "unit": "Android Developer - Unit 2",
-      "quote": "Hi vọng trong thời gian đồng hành cùng Sun*, tôi sẽ cùng Sun* tạo ra những sản phẩm sáng tạo, xây dựng môi trường ..."
+    companion object {
+        const val SAMPLE_REQUEST = "SWFR01011991.seam"
+        const val MOCK_SAMPLE_RESPONSE_FILE_NAME = "SWFR01011991.json"
     }
-  ],
-  "error": {
-    "code": 123,
-    "message": "DanhDue ExOICIF"
-  }
+
 }
-"""

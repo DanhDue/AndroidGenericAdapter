@@ -19,6 +19,7 @@ import com.danhdueexoictif.androidgenericadapter.utils.locale.AppLocaleHelper
 import com.danhdueexoictif.androidgenericadapter.utils.locale.LocaleHelper
 import com.danhdueexoictif.androidgenericadapter.utils.sharedpreference.LiveSharedPreferences
 import com.google.android.exoplayer2.database.ExoDatabaseProvider
+import com.google.android.exoplayer2.upstream.cache.Cache
 import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor
 import com.google.android.exoplayer2.upstream.cache.SimpleCache
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -28,6 +29,7 @@ import im.ene.toro.exoplayer.MediaSourceBuilder
 import im.ene.toro.exoplayer.ToroExo
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import java.io.File
 
@@ -53,7 +55,7 @@ val appModule = module {
     /**
      *  provide ExoPlayer Cache
      */
-    single(name = "exoCache") {
+    single<Cache>(qualifier = named("exoCache")) {
         SimpleCache(
             File(androidContext().filesDir.path + Constants.VIDEO_CACHE_PATH),
             LeastRecentlyUsedCacheEvictor(2 * 1024 * 1024L), ExoDatabaseProvider(androidContext())
@@ -65,7 +67,7 @@ val appModule = module {
      */
     single {
         Config.Builder(androidContext()).setMediaSourceBuilder(MediaSourceBuilder.DEFAULT)
-            .setCache(get(name = "exoCache")).build()
+            .setCache(get(qualifier = named("exoCache"))).build()
     }
 
     /**

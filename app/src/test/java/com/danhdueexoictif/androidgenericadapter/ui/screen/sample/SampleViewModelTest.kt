@@ -95,7 +95,8 @@ class SampleViewModelTest : BaseViewModelTest<SampleViewModel>() {
         // Then
         assertEquals(false, viewModel.isLoadSuccess.value)
         assertEquals(false, viewModel.isLoadMore)
-        assertEquals("No Internet Connection.", viewModel.noInternetConnectionEvent.value)
+        assertEquals(true, viewModel.isLoadFail.value)
+        assertEquals(null, viewModel.noInternetConnectionEvent.value)
     }
 
     /**

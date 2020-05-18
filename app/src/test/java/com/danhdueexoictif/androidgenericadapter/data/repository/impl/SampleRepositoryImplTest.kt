@@ -58,17 +58,11 @@ class SampleRepositoryImplTest {
     fun should_doSomethingWithCoroutine() = coroutinesRule.runBlocking {
         // Given
         val expectedResult = NewBieResObject(listOf(NewBieObject(1001)))
-        every {
-            apiService.getNewbiesAsync(
-                "",
-                "",
-                Constants.DEFAULT_FIRST_PAGE
-            )
-        } returns CompletableDeferred(
+        every { apiService.getNewbiesAsync("") } returns CompletableDeferred(
             NetworkResponse.Success(expectedResult)
         )
         // When
-        val result = apiService.getNewbiesAsync("", "", Constants.DEFAULT_FIRST_PAGE).await()
+        val result = apiService.getNewbiesAsync("").await()
         // Then
         result() shouldBe expectedResult
     }
@@ -77,13 +71,7 @@ class SampleRepositoryImplTest {
     fun getNewbieList_ifSuccess() = coroutinesRule.runBlocking {
         // Given
         val expectedResult = NewBieResObject(listOf(NewBieObject(1001)))
-        every {
-            apiService.getNewbiesAsync(
-                "123".getAccessToken(),
-                "",
-                Constants.DEFAULT_FIRST_PAGE
-            )
-        } returns CompletableDeferred(
+        every { apiService.getNewbiesAsync("123".getAccessToken()) } returns CompletableDeferred(
             NetworkResponse.Success(expectedResult)
         )
         // When

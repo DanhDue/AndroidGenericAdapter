@@ -8,6 +8,8 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import android.provider.Settings
 import android.widget.Toast
+import com.danhdueexoictif.androidgenericadapter.data.remote.response.HttpResponseCode
+import com.danhdueexoictif.androidgenericadapter.utils.Constants
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
@@ -64,10 +66,10 @@ object NoInternetUtils {
 
             urlConnection.setRequestProperty("User-Agent", "Test")
             urlConnection.setRequestProperty("Connection", "close")
-            urlConnection.connectTimeout = 1500
+            urlConnection.connectTimeout = Constants.DOUBLE_CHECK_CONNECTION_TIME_OUT
             urlConnection.connect()
 
-            return urlConnection.responseCode == 200
+            return urlConnection.responseCode == HttpResponseCode.HTTP_OK
         } catch (e: IOException) {
             e.printStackTrace()
         }
