@@ -40,4 +40,16 @@ object Constants {
         const val OS_NAME = "Android"
         const val CONTENT_TYPE = "application/json"
     }
+
+    object LoggingParam {
+        const val KEY_OS_NAME = "OS"
+        const val OS_NAME_VALUE = "Android"
+        const val KEY_USER_NAME = "KEY_USER_NAME"
+        const val KEY_SCREEN_NAME = "SCREEN_NAME"
+        const val KEY_NEWS_CATEGORY = "NEWS_CATEGORY"
+        const val KEY_BUTTON_CLICKED = "BUTTON_CLICKED"
+        const val INIT_VALUE = "INIT"
+        const val NEWS_DETAIL_INIT = "NEWS_DETAIL_INIT"
+        const val MEMBER_CATEGORY = "MEMBER"
+    }
 }
