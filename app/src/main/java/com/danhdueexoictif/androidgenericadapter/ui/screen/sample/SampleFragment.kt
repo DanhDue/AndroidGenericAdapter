@@ -1,6 +1,7 @@
 package com.danhdueexoictif.androidgenericadapter.ui.screen.sample
 
 import android.os.Bundle
+import android.widget.Toast
 import com.danhdueexoictif.androidgenericadapter.R
 import com.danhdueexoictif.androidgenericadapter.data.bean.NewBieObject
 import com.danhdueexoictif.androidgenericadapter.databinding.SampleFragmentBinding
@@ -9,8 +10,11 @@ import com.danhdueexoictif.androidgenericadapter.ui.widgets.recyclerview.BaseRec
 import com.danhdueexoictif.androidgenericadapter.ui.widgets.recyclerview.BaseRecyclerViewModel
 import com.danhdueexoictif.androidgenericadapter.ui.widgets.recyclerview.CustomRecyclerView
 import com.danhdueexoictif.androidgenericadapter.utils.Constants
+import com.danhdueexoictif.androidgenericadapter.utils.setSingleClick
+import kotlinx.android.synthetic.main.layout_header.*
 import kotlinx.android.synthetic.main.sample_fragment.*
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class SampleFragment :
     BaseMainTabLoadMoreRefreshFragment<SampleFragmentBinding, SampleViewModel, BaseRecyclerViewModel>() {
@@ -21,7 +25,7 @@ class SampleFragment :
     }
 
     override val layoutId: Int = R.layout.sample_fragment
-    override val viewModel: SampleViewModel by inject()
+    override val viewModel: SampleViewModel by viewModel()
 
     override val customRecyclerView: CustomRecyclerView
         get() = recSamples
@@ -38,5 +42,13 @@ class SampleFragment :
             Constants.LoggingParam.INIT_VALUE,
             Constants.LoggingParam.MEMBER_CATEGORY
         )
+
+        imgHeaderNaviDrawer?.setSingleClick {
+            Timber.d("save User Name")
+            viewModel.saveUserName()
+        }
+
+        Toast.makeText(requireContext(), "Ciao Mr.${viewModel.getUserName()}!", Toast.LENGTH_SHORT)
+            .show()
     }
 }

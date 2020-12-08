@@ -34,6 +34,8 @@ object NoInternetUtils {
                 networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
                 //for check internet over Bluetooth
                 networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> true
+                // for check internet over VPN
+                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN) -> true
                 else -> false
             }
         } else {

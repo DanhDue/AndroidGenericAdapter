@@ -29,4 +29,10 @@ class SampleViewModel(private val sampleRepo: SampleRepository) :
             }
         }
     }
+
+    fun saveUserName() {
+        sampleRepo.saveUserName()
+    }
+
+    fun getUserName(): String? = sampleRepo.getUserName()
 }

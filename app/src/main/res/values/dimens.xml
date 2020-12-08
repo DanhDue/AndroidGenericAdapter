@@ -59,4 +59,9 @@
     <dimen name="dp_86">86dp</dimen>
     <dimen name="dp_320">320dp</dimen>
     <dimen name="dp_11">11dp</dimen>
+    <dimen name="sp_23">23sp</dimen>
+    <dimen name="sp_32">32sp</dimen>
+    <dimen name="sp_36">36sp</dimen>
+    <dimen name="dp_69">69dp</dimen>
+    <dimen name="dp_96">96dp</dimen>
 </resources>

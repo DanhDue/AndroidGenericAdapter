@@ -1,6 +1,6 @@
 package com.danhdueexoictif.androidgenericadapter.ui.base
 
-import android.os.AsyncTask
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.danhdueexoictif.androidgenericadapter.BR
@@ -23,6 +24,7 @@ import com.danhdueexoictif.androidgenericadapter.utils.analytic.LoggingHelper
 import com.danhdueexoictif.androidgenericadapter.utils.controller.OnEventController
 import com.danhdueexoictif.androidgenericadapter.utils.extension.hideKeyBoard
 import com.danhdueexoictif.androidgenericadapter.utils.showDialog
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
@@ -118,8 +120,9 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
 
     protected open fun resetViewsBeforeRefreshing() {}
 
+    @SuppressLint("ClickableViewAccessibility")
     open fun setupHideKeyboardWhenTouchOutSide(view: View?) {
-        AsyncTask.execute {
+        lifecycleScope.launch {
             // Set up touch listener for non-text box views to hide keyboard.
             if (view !is EditText) {
                 view?.setOnTouchListener { _, _ ->

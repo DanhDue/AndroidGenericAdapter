@@ -58,4 +58,8 @@ class AppSharedPreferenceHelper(private val sharedPrefsApi: SharedPrefsApi) :
      * An implementation of [SharedPreferenceHelper.clearUserLocalData]
      */
     override fun clearUserLocalData() = sharedPrefsApi.remove(SharedPrefsKey.FIRST_RUN)
+
+    override fun saveUserName() = sharedPrefsApi.set(SharedPrefsKey.USER_NAME, "DanhDue ExOICTIF")
+
+    override fun getUserName(): String? = sharedPrefsApi.get(SharedPrefsKey.USER_NAME, null)
 }

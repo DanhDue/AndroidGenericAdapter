@@ -2,13 +2,13 @@ package com.danhdueexoictif.buildsrc
 
 object Version {
     const val kotlin = "1.3.70"
-    const val coroutines = "1.3.4"
+    const val coroutines = "1.3.9"
     const val kotlintest = "3.4.2"
     const val room = "2.2.1"
     const val timber = "4.7.1"
     const val koin = "2.1.5"
     const val appCompat = "1.2.0-alpha01"
-    const val material = "1.2.0-alpha01"
+    const val material = "1.2.1"
     const val constraintLayout = "1.1.3"
     const val coreKtx = "1.1.0"
     const val testExt = "1.1.1"
@@ -81,14 +81,27 @@ object Deps {
     const val androidxAnnotations = "androidx.annotation:annotation:${Version.androidxAnnotations}"
     const val jodaTime = "joda-time:joda-time:${Version.jodaTime}"
 
+    object FlowBinding {
+        private const val flowBindingVersion: String = "0.12.0"
+        const val android: String =
+            "io.github.reactivecircus.flowbinding:flowbinding-android:$flowBindingVersion"
+        const val swipeRefresh: String =
+            "io.github.reactivecircus.flowbinding:flowbinding-swiperefreshlayout:$flowBindingVersion"
+        const val lifecycle: String =
+            "io.github.reactivecircus.flowbinding:flowbinding-lifecycle:$flowBindingVersion"
+    }
+
     object Kotlin {
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Version.kotlin}"
         const val test = "org.jetbrains.kotlin:kotlin-test-junit:${Version.kotlin}"
         const val plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}"
         const val allopen = "org.jetbrains.kotlin:kotlin-allopen:${Version.kotlin}"
         const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Version.coroutines}"
+        const val androidCoroutine =
+            "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Version.coroutines}"
         const val kotlintest = "io.kotlintest:kotlintest-runner-junit5:${Version.kotlintest}"
-        const val kotlinxCoroutineTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.coroutines}"
+        const val kotlinxCoroutineTest =
+            "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.coroutines}"
     }
 
     object Support {
@@ -130,7 +143,8 @@ object Deps {
         const val mockk = "io.mockk:mockk:${Version.mockk}"
         const val mockito = "org.mockito:mockito-core:${Version.mockito}"
         const val mockitoInline = "org.mockito:mockito-inline:${Version.mockito}"
-        const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Version.mockitoKotlin}"
+        const val mockitoKotlin =
+            "com.nhaarman.mockitokotlin2:mockito-kotlin:${Version.mockitoKotlin}"
         const val slf4j = "org.slf4j:slf4j-simple:${Version.slf4j}"
         const val robolectric = "org.robolectric:robolectric:${Version.robolectric}"
     }

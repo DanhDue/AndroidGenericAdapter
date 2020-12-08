@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,15 +10,199 @@
             type="com.danhdueexoictif.androidgenericadapter.ui.screen.login.LoginViewModel" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/login_bg"
         tools:context="com.danhdueexoictif.androidgenericadapter.ui.screen.login.LoginFragment">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Hello" />
+        <View
+            android:id="@+id/avatarHolder"
+            android:layout_width="@dimen/dp_96"
+            android:layout_height="@dimen/dp_96"
+            app:layout_constraintBottom_toTopOf="@+id/loginTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
 
-    </FrameLayout>
+        <View
+            android:id="@+id/layoutHolder"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_59"
+            android:layout_marginEnd="@dimen/dp_12"
+            android:background="@drawable/login_background"
+            app:layout_constraintBottom_toBottomOf="@id/bottomDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/avatarHolder" />
+
+        <View
+            android:layout_width="@dimen/dp_74"
+            android:layout_height="@dimen/dp_74"
+            android:background="@drawable/bg_circle"
+            app:layout_constraintBottom_toBottomOf="@id/avatarHolder"
+            app:layout_constraintEnd_toEndOf="@id/avatarHolder"
+            app:layout_constraintStart_toStartOf="@id/avatarHolder"
+            app:layout_constraintTop_toTopOf="@id/avatarHolder" />
+
+        <ProgressBar
+            android:layout_width="@dimen/dp_96"
+            android:layout_height="@dimen/dp_96"
+            android:layout_margin="@dimen/dp_28"
+            app:layout_constraintBottom_toBottomOf="@id/avatarHolder"
+            app:layout_constraintEnd_toEndOf="@id/avatarHolder"
+            app:layout_constraintStart_toStartOf="@id/avatarHolder"
+            app:layout_constraintTop_toTopOf="@id/avatarHolder" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/dp_56"
+            android:layout_height="@dimen/dp_56"
+            app:layout_constraintBottom_toBottomOf="@id/avatarHolder"
+            app:layout_constraintEnd_toEndOf="@id/avatarHolder"
+            app:layout_constraintStart_toStartOf="@id/avatarHolder"
+            app:layout_constraintTop_toTopOf="@id/avatarHolder"
+            app:srcCompat="@drawable/ic_avatar" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/loginTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_23"
+            android:text="@string/txt_sign_in"
+            android:textSize="@dimen/dp_36"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/userNameHolder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/avatarHolder" />
+
+        <View
+            android:id="@+id/userNameHolder"
+            android:layout_width="347dp"
+            android:layout_height="@dimen/dp_69"
+            android:layout_marginTop="@dimen/dp_23"
+            android:background="@drawable/login_edittext_background"
+            app:layout_constraintBottom_toTopOf="@+id/passHolder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginTitle" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icoUserName"
+            android:layout_width="@dimen/dp_36"
+            android:layout_height="@dimen/dp_36"
+            android:layout_marginStart="@dimen/dp_16"
+            app:layout_constraintBottom_toBottomOf="@id/userNameHolder"
+            app:layout_constraintStart_toStartOf="@id/userNameHolder"
+            app:layout_constraintTop_toTopOf="@id/userNameHolder"
+            app:srcCompat="@drawable/ic_ico_user"
+            tools:visibility="visible" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edtUserName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_13"
+            android:layout_marginEnd="@dimen/dp_13"
+            android:background="@color/transparent"
+            android:hint="@string/hint_user_name"
+            android:textSize="@dimen/sp_32"
+            app:layout_constraintBottom_toBottomOf="@id/userNameHolder"
+            app:layout_constraintEnd_toEndOf="@id/userNameHolder"
+            app:layout_constraintStart_toEndOf="@id/icoUserName"
+            app:layout_constraintTop_toTopOf="@id/userNameHolder"
+            tools:visibility="visible" />
+
+        <View
+            android:id="@+id/passHolder"
+            android:layout_width="347dp"
+            android:layout_height="@dimen/dp_69"
+            android:layout_marginTop="@dimen/dp_13"
+            android:background="@drawable/login_edittext_background"
+            app:layout_constraintBottom_toTopOf="@+id/butLogin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userNameHolder" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icoPass"
+            android:layout_width="@dimen/dp_36"
+            android:layout_height="@dimen/dp_36"
+            android:layout_marginStart="@dimen/dp_16"
+            app:layout_constraintBottom_toBottomOf="@id/passHolder"
+            app:layout_constraintStart_toStartOf="@id/passHolder"
+            app:layout_constraintTop_toTopOf="@id/passHolder"
+            app:srcCompat="@drawable/ic_pass" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edtPass"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_13"
+            android:layout_marginEnd="@dimen/dp_13"
+            android:background="@color/transparent"
+            android:hint="@string/txt_password"
+            android:textSize="@dimen/sp_32"
+            app:layout_constraintBottom_toBottomOf="@id/passHolder"
+            app:layout_constraintEnd_toEndOf="@id/passHolder"
+            app:layout_constraintStart_toEndOf="@id/icoUserName"
+            app:layout_constraintTop_toTopOf="@id/passHolder" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/butLogin"
+            android:layout_width="347dp"
+            android:layout_height="@dimen/dp_69"
+            android:layout_marginTop="@dimen/dp_13"
+            android:background="@drawable/login_button_background"
+            android:text="@string/txt_login"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_23"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/cbRememberMe"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passHolder" />
+
+        <CheckBox
+            android:id="@+id/cbRememberMe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_13"
+            android:buttonTint="@color/white"
+            android:checked="true"
+            android:paddingStart="@dimen/dp_5"
+            android:paddingEnd="0dp"
+            android:text="@string/txt_remember_me"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_18"
+            app:layout_constraintBottom_toTopOf="@+id/bottomDivider"
+            app:layout_constraintStart_toStartOf="@id/butLogin"
+            app:layout_constraintTop_toBottomOf="@+id/butLogin" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="@string/txt_forgot_password"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toBottomOf="@id/cbRememberMe"
+            app:layout_constraintEnd_toEndOf="@id/passHolder"
+            app:layout_constraintStart_toEndOf="@id/cbRememberMe"
+            app:layout_constraintTop_toTopOf="@id/cbRememberMe" />
+
+        <View
+            android:id="@+id/bottomDivider"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_32"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cbRememberMe" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

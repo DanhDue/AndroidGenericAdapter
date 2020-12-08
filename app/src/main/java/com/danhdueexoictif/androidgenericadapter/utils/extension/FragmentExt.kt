@@ -20,7 +20,7 @@ fun Fragment.showCommonDialog(
     positiveTextId: Int, positiveAction: ((DialogInterface?, Int) -> Unit)? = null,
     negativeTextId: Int, negativeAction: ((DialogInterface?, Int) -> Unit)? = null
 ) {
-    val builder = MaterialAlertDialogBuilder(context)
+    val builder = MaterialAlertDialogBuilder(requireContext())
     title?.let { builder.setTitle(title) }
     message?.let { builder.setMessage(message) }
     builder.setPositiveButton(positiveTextId) { dialogInterface, i ->

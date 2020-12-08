@@ -77,24 +77,24 @@ android {
             isTestCoverageEnabled = false
             resValue("string", "app_name", "Android Generic Adapter(Sta)")
             buildConfigField(
-                    "String",
-                    "SHARED_PREFERENCES_NAME",
-                    "\"com.danhdueexoictif.androidgenericadapter.debug\""
+                "String",
+                "SHARED_PREFERENCES_NAME",
+                "\"com.danhdueexoictif.androidgenericadapter.debug\""
             )
             buildConfigField(
-                    "String",
-                    "BASE_URL",
-                    "\"https://www.google.com/api/V1/\""
+                "String",
+                "BASE_URL",
+                "\"https://www.google.com/api/V1/\""
             )
             buildConfigField(
-                    "String",
-                    "BASE_AUTH_USER_NAME",
-                    "\"danhdue\""
+                "String",
+                "BASE_AUTH_USER_NAME",
+                "\"danhdue\""
             )
             buildConfigField(
-                    "String",
-                    "BASE_AUTH_PASSWORD",
-                    "\"d3t3\""
+                "String",
+                "BASE_AUTH_PASSWORD",
+                "\"d3t3\""
             )
         }
 
@@ -107,36 +107,36 @@ android {
             isUseProguard = true
             resValue("string", "app_name", "Android Generic Adapter")
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
             buildConfigField(
-                    "String",
-                    "SHARED_PREFERENCES_NAME",
-                    "\"com.danhdueexoictif.androidgenericadapter\""
+                "String",
+                "SHARED_PREFERENCES_NAME",
+                "\"com.danhdueexoictif.androidgenericadapter\""
             )
             buildConfigField(
-                    "String",
-                    "BASE_URL",
-                    "\"https://www.google.com/api/V1/\""
+                "String",
+                "BASE_URL",
+                "\"https://www.google.com/api/V1/\""
             )
             buildConfigField(
-                    "String",
-                    "BASE_AUTH_USER_NAME",
-                    "\"danhdue\""
+                "String",
+                "BASE_AUTH_USER_NAME",
+                "\"danhdue\""
             )
             buildConfigField(
-                    "String",
-                    "BASE_AUTH_PASSWORD",
-                    "\"d3t3\""
+                "String",
+                "BASE_AUTH_PASSWORD",
+                "\"d3t3\""
             )
         }
 
         applicationVariants.all {
             buildConfigField(
-                    "String",
-                    "SITE_SERIAL",
-                    "\"HDN9DanhDueExOICTIFvSAt3HqfFz5DJDZT3yzRzl592FWFQd9l954N76W7Z81ZNIwm\""
+                "String",
+                "SITE_SERIAL",
+                "\"HDN9DanhDueExOICTIFvSAt3HqfFz5DJDZT3yzRzl592FWFQd9l954N76W7Z81ZNIwm\""
             )
             buildConfigField(
                 "String",
@@ -245,6 +245,13 @@ dependencies {
 
     // Coroutines
     implementation(Deps.Kotlin.coroutines)
+    implementation(Deps.Kotlin.androidCoroutine)
+
+    // FlowBinding
+    implementation(Deps.FlowBinding.android)
+    implementation(Deps.FlowBinding.lifecycle)
+    implementation(Deps.FlowBinding.swipeRefresh)
+
     implementation(Deps.Kotlin.kotlintest)
     implementation(Deps.Retrofit.mockwebserver)
     implementation(Deps.Google.guava)
@@ -254,6 +261,7 @@ dependencies {
     implementation(Deps.Lifecycle.liveDataKtx)
     implementation(Deps.Lifecycle.savedState)
     implementation(Deps.Lifecycle.extensions)
+    implementation(Deps.Lifecycle.java8)
     kapt(Deps.Lifecycle.compiler)
 
     // Room
@@ -311,45 +319,45 @@ tasks.register("fullCoverageReport", JacocoReport::class) {
     }
 
     val fileFilters = listOf(
-            "**/R.class",
-            "**/R$*.class",
-            "**/BR.class",
-            "**/DataBinder*.class",
-            "**/*DataBinding*.*",
-            "**/BuildConfig.*",
-            "**/Manifest*.*",
-            "**/*Test*.*",
-            "**/*Directions*.*",
-            "**/*Args*.*",
-            "**/android/**/*.*",
-            "**/*Fragment.*",
-            "**/*Fragment*.*",
-            "**/*Activity.*",
-            "**/*Activity*.*",
-            "**/androidx/**/*.*",
-            "**/com.facebook/**/*.*",
-            "**/fabric/**/*.*",
-            "**/CrashReportingTree.class",
-            "**/*Companion.class",
-            "**/org.koin/**/*.*",
-            "**/databinding/*.*",
-            "**/*Kt*.*",
-            "**/com/bumptech/glide/**/*.*",
-            "**/com/danhdueexoictif/androidgenericadapter/widgets/**/*.*",
-            "**/com/danhdueexoictif/androidgenericadapter/generated/**/*.*",
-            "**/com/danhdueexoictif/androidgenericadapter/data/bean/**/*.*",
-            "**/com/danhdueexoictif/androidgenericadapter/data/remote/request/**/*.*",
-            "**/com/danhdueexoictif/androidgenericadapter/data/remote/response/**/*.*",
-            "**/com/danhdueexoictif/androidgenericadapter/di/**/*.*",
-            "**/com/danhdueexoictif/androidgenericadapter/utils/**/*.*",
-            "**/com/danhdueexoictif/androidgenericadapter/ui/base/**/*.*"
+        "**/R.class",
+        "**/R$*.class",
+        "**/BR.class",
+        "**/DataBinder*.class",
+        "**/*DataBinding*.*",
+        "**/BuildConfig.*",
+        "**/Manifest*.*",
+        "**/*Test*.*",
+        "**/*Directions*.*",
+        "**/*Args*.*",
+        "**/android/**/*.*",
+        "**/*Fragment.*",
+        "**/*Fragment*.*",
+        "**/*Activity.*",
+        "**/*Activity*.*",
+        "**/androidx/**/*.*",
+        "**/com.facebook/**/*.*",
+        "**/fabric/**/*.*",
+        "**/CrashReportingTree.class",
+        "**/*Companion.class",
+        "**/org.koin/**/*.*",
+        "**/databinding/*.*",
+        "**/*Kt*.*",
+        "**/com/bumptech/glide/**/*.*",
+        "**/com/danhdueexoictif/androidgenericadapter/widgets/**/*.*",
+        "**/com/danhdueexoictif/androidgenericadapter/generated/**/*.*",
+        "**/com/danhdueexoictif/androidgenericadapter/data/bean/**/*.*",
+        "**/com/danhdueexoictif/androidgenericadapter/data/remote/request/**/*.*",
+        "**/com/danhdueexoictif/androidgenericadapter/data/remote/response/**/*.*",
+        "**/com/danhdueexoictif/androidgenericadapter/di/**/*.*",
+        "**/com/danhdueexoictif/androidgenericadapter/utils/**/*.*",
+        "**/com/danhdueexoictif/androidgenericadapter/ui/base/**/*.*"
     )
 
     val debugTree = fileTree(
-            mapOf(
-                    "dir" to "$buildDir/intermediates/classes/debug",
-                    "excludes" to fileFilters
-            )
+        mapOf(
+            "dir" to "$buildDir/intermediates/classes/debug",
+            "excludes" to fileFilters
+        )
     )
 
     val mainSrc = "${project.projectDir}/src/main/java"
@@ -358,21 +366,21 @@ tasks.register("fullCoverageReport", JacocoReport::class) {
     classDirectories.setFrom(files(listOf(debugTree)))
 
     executionData.setFrom(
-            fileTree(
-                    mapOf(
-                            "dir" to "$buildDir",
-                            "includes" to listOf(
-                            "jacoco/testDebugUnitTest.exec",
-                            "outputs/code-coverage/connected/*coverage.ec"
-                    )
-                    )
+        fileTree(
+            mapOf(
+                "dir" to "$buildDir",
+                "includes" to listOf(
+                    "jacoco/testDebugUnitTest.exec",
+                    "outputs/code-coverage/connected/*coverage.ec"
+                )
             )
+        )
     )
 }
 
 
 project.tasks.whenTaskAdded {
-    when(name) {
+    when (name) {
         "testReleaseUnitTest" -> enabled = false
         "testMockDebugUnitTest" -> enabled = false
         "testMockReleaseUnitTest" -> enabled = false

@@ -14,4 +14,8 @@ interface SampleRepository {
      * @return Deferred is a job with NetworkResponse result.
      */
     fun createBrandMemberIdAsync(kokokuId: String?): Deferred<NetworkResponse<MemberResObject, *>>
+
+    fun saveUserName()
+
+    fun getUserName(): String?
 }

@@ -29,4 +29,8 @@ class SampleRepositoryImpl(
                 d3t3
             )
         )
+
+    override fun saveUserName() = sharedPref.saveUserName()
+
+    override fun getUserName(): String? = sharedPref.getUserName()
 }

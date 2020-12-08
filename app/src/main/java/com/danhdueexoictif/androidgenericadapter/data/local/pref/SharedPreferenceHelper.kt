@@ -45,4 +45,8 @@ interface SharedPreferenceHelper {
      * Clear user information
      */
     fun clearUserLocalData()
+
+    fun saveUserName()
+
+    fun getUserName() : String?
 }

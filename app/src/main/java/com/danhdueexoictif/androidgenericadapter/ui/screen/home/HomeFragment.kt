@@ -3,7 +3,7 @@ package com.danhdueexoictif.androidgenericadapter.ui.screen.home
 import com.danhdueexoictif.androidgenericadapter.R
 import com.danhdueexoictif.androidgenericadapter.databinding.HomeFragmentBinding
 import com.danhdueexoictif.androidgenericadapter.ui.base.BaseFragment
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
 
@@ -12,6 +12,6 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
     }
 
     override val layoutId: Int = R.layout.home_fragment
-    override val viewModel: HomeViewModel by inject()
+    override val viewModel: HomeViewModel by viewModel()
 
 }
