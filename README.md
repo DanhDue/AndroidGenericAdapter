@@ -11,7 +11,7 @@ This project is a sample base code that implements the MVVM architecture and use
 Technical Information used in this project:
 
 1. Programming Language: [Android Kotlin][29].
-2. Architecture: [MVVM architecture][28] based on [Android Jetpack][0].
+2. Architecture: [MVVM architecture][28] based on [Android Jetpack][0].  For more resources on learning Android development, visit the [Developer Guides](https://developer.android.com/guide/) at [developer.android.com](https://developer.android.com).
 3. Android Components: ([Navigation][8], [ViewModel][9], [LiveData][7], [Data Binding][5], [Lifecycles][6], [Android Material Design][31], [etc][16]...).
 4. Multiple Threads: [Kotlin Coroutine][26].
 5. Third Party Libraries: [Glide][14], [Retrofit][30], [Koin][24], [Firebase][25], [MockK][22], [etc][16],...
@@ -19,19 +19,6 @@ Technical Information used in this project:
 7. [ScreenShots][17]
 
 Moreover, you can read more detail about some project components by clicking to links contained at [References][18] part.
-
-About Android Jetpack
----------------------
-
-Android Jetpack is a set of components, tools and guidance to make great Android apps. They bring
-together the existing Support Library and Architecture Components and arrange them into four
-categories:
-
-![Android Jetpack](screenshots/jetpack_donut.png "Android Jetpack Components")
-
-For more resources on learning Android development, visit the
-[Developer Guides](https://developer.android.com/guide/) at
-[developer.android.com](https://developer.android.com).
 
 Libraries Used
 --------------
@@ -99,6 +86,7 @@ Libraries Used
 [31]: https://material.io/develop/android/
 [32]: http://robolectric.org/
 [33]: https://viblo.asia/p/calbacks-trong-ung-dung-android-RnB5pk87lPG
+[34]: https://viblo.asia/p/change-retrofits-base-url-at-runtime-ORNZqDLMK0n
 
 Screenshots
 -----------
@@ -116,6 +104,7 @@ Screenshots
 
 References
 ----------
+* [Change Android Retrofit's Base Url at runtime.][34]
 * [Change Android Brightness.][19]
 * [Play Youtube videos on Androids.][20]
 * [ Setup Jacoco for Android Project.][21]

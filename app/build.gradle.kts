@@ -96,6 +96,16 @@ android {
                 "BASE_AUTH_PASSWORD",
                 "\"d3t3\""
             )
+            buildConfigField(
+                "String",
+                "SITE_SERIAL",
+                "\"HDN9DanhDueExOICTIFvSAt3HqfFz5DJDZT3yzRzl592FWFQd9l954N76W7Z81ZNIwm\""
+            )
+            buildConfigField(
+                "String",
+                "CONFIGURATION_DOMAIN",
+                "\"https://www.google.com/api/V1/\""
+            )
         }
 
         getByName("release") {
@@ -131,24 +141,11 @@ android {
                 "\"d3t3\""
             )
         }
-
-        applicationVariants.all {
-            buildConfigField(
-                "String",
-                "SITE_SERIAL",
-                "\"HDN9DanhDueExOICTIFvSAt3HqfFz5DJDZT3yzRzl592FWFQd9l954N76W7Z81ZNIwm\""
-            )
-            buildConfigField(
-                "String",
-                "CONFIGURATION_DOMAIN",
-                "\"https://www.google.com/api/V1/\""
-            )
-        }
     }
 
     compileOptions {
-        setTargetCompatibility(1.8)
-        setSourceCompatibility(1.8)
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
@@ -308,76 +305,6 @@ dependencies {
     implementation(Deps.Test.slf4j)
     implementation(Deps.Google.licenses)
 }
-
-tasks.register("fullCoverageReport", JacocoReport::class) {
-    //    dependsOn("createDebugCoverageReport")
-    dependsOn("testDebugUnitTest")
-
-    reports {
-        xml.isEnabled = true
-        html.isEnabled = true
-    }
-
-    val fileFilters = listOf(
-        "**/R.class",
-        "**/R$*.class",
-        "**/BR.class",
-        "**/DataBinder*.class",
-        "**/*DataBinding*.*",
-        "**/BuildConfig.*",
-        "**/Manifest*.*",
-        "**/*Test*.*",
-        "**/*Directions*.*",
-        "**/*Args*.*",
-        "**/android/**/*.*",
-        "**/*Fragment.*",
-        "**/*Fragment*.*",
-        "**/*Activity.*",
-        "**/*Activity*.*",
-        "**/androidx/**/*.*",
-        "**/com.facebook/**/*.*",
-        "**/fabric/**/*.*",
-        "**/CrashReportingTree.class",
-        "**/*Companion.class",
-        "**/org.koin/**/*.*",
-        "**/databinding/*.*",
-        "**/*Kt*.*",
-        "**/com/bumptech/glide/**/*.*",
-        "**/com/danhdueexoictif/androidgenericadapter/widgets/**/*.*",
-        "**/com/danhdueexoictif/androidgenericadapter/generated/**/*.*",
-        "**/com/danhdueexoictif/androidgenericadapter/data/bean/**/*.*",
-        "**/com/danhdueexoictif/androidgenericadapter/data/remote/request/**/*.*",
-        "**/com/danhdueexoictif/androidgenericadapter/data/remote/response/**/*.*",
-        "**/com/danhdueexoictif/androidgenericadapter/di/**/*.*",
-        "**/com/danhdueexoictif/androidgenericadapter/utils/**/*.*",
-        "**/com/danhdueexoictif/androidgenericadapter/ui/base/**/*.*"
-    )
-
-    val debugTree = fileTree(
-        mapOf(
-            "dir" to "$buildDir/intermediates/classes/debug",
-            "excludes" to fileFilters
-        )
-    )
-
-    val mainSrc = "${project.projectDir}/src/main/java"
-
-    sourceDirectories.setFrom(files(listOf(mainSrc)))
-    classDirectories.setFrom(files(listOf(debugTree)))
-
-    executionData.setFrom(
-        fileTree(
-            mapOf(
-                "dir" to "$buildDir",
-                "includes" to listOf(
-                    "jacoco/testDebugUnitTest.exec",
-                    "outputs/code-coverage/connected/*coverage.ec"
-                )
-            )
-        )
-    )
-}
-
 
 project.tasks.whenTaskAdded {
     when (name) {

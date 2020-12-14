@@ -1,2 +1,2 @@
-include(":app", ":buildSrc", ":YoutubePlayer")
+include(":app", ":YoutubePlayer")
 rootProject.name = "AndroidGenericAdapter"
