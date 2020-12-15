@@ -1,6 +1,6 @@
 package com.danhdueexoictif.androidgenericadapter.ui.screen.login
 
-import androidx.lifecycle.ViewModel
+import com.danhdueexoictif.androidgenericadapter.ui.base.BaseViewModel
 import com.danhdueexoictif.androidgenericadapter.ui.base.mvi.MVIPresenter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class LoginViewModel : ViewModel(), MVIPresenter<LoginViewIntent, LoginViewState> {
+class LoginViewModel : BaseViewModel(), MVIPresenter<LoginViewIntent, LoginViewState> {
 
     private val _viewStates: MutableStateFlow<LoginViewState> =
         MutableStateFlow(LoginViewState.Idle)

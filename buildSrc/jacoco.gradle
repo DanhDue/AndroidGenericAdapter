@@ -1,7 +1,7 @@
 apply plugin: 'jacoco'
 
 jacoco {
-    toolVersion = "0.8.1"
+    toolVersion = "0.8.6"
     // Custom reports directory can be specfied like this:
     // reportsDir = file("$buildDir/customJacocoReportDir")
 }
@@ -12,11 +12,13 @@ tasks.withType(Test) {
 
 project.afterEvaluate {
 
-    android.applicationVariants.all { variant ->
+    (android.hasProperty('applicationVariants')
+            ? android.'applicationVariants'
+            : android.'libraryVariants').all { variant ->
         def variantName = variant.name
         def testTaskName = "test${variantName.capitalize()}UnitTest"
 
-        tasks.create(name: "${testTaskName}Coverage", type: JacocoReport, dependsOn: "$testTaskName") {
+        tasks.create(name: "${testTaskName}Coverage", type: JacocoReport, dependsOn: ["$testTaskName", ":YoutubePlayer:$testTaskName"]) {
             // task implementation here ...
             group = "Coverage"
             description = "Generate Jacoco coverage reports for the ${variantName.capitalize()} build."
@@ -25,62 +27,79 @@ project.afterEvaluate {
                 html.enabled = true
                 xml.enabled = true
                 xml {
-                    destination file("${project.rootDir}/.framgia-ci-reports/coverage/coverage.xml")
+                    destination file("${project.rootDir}/.ci-reports/coverage/coverage.xml")
                 }
                 html {
-                    destination file("${project.rootDir}/.framgia-ci-reports/coverage/")
+                    destination file("${project.rootDir}/.ci-reports/coverage/")
                 }
             }
 
-            def excludes = ['**/R.class',
-                            '**/R$*.class',
-                            '**/BR.class',
-                            '**/DataBinder*.class',
-                            '**/*DataBinding*.*',
-                            '**/*Directions.*',
-                            '**/*Directions*.*',
-                            '**/*Adapter*.*',
-                            '**/*Args*.*',
-                            '**/BuildConfig.*',
-                            '**/Manifest*.*',
-                            '**/*Test*.*',
-                            '**/android/**/*.*',
-                            '**/*Fragment.*',
-                            '**/*Fragment*.*',
-                            '**/*Activity.*',
-                            '**/*Activity*.*',
-                            '**/androidx/**/*.*',
-                            '**/com/facebook/**/*.*',
-                            '**/fabric/*.*',
-                            '**/CrashReportingTree.class',
-                            '**/*Companion.class',
-                            '**/org/koin/**/*.*',
-                            '**/databinding/*.*',
-                            '**/*Kt*.*',
-                            '**/com/bumptech/glide/**/*.*',
-                            '**/com/danhdueexoictif/androidgenericadapter/AppController.*',
-                            '**/com/danhdueexoictif/androidgenericadapter/AppController*.*',
-                            '**/com/danhdueexoictif/androidgenericadapter/ui/widgets/**/*.*',
-                            '**/com/danhdueexoictif/androidgenericadapter/generated/**/*.*',
-                            '**/com/danhdueexoictif/androidgenericadapter/data/bean/**/*.*',
-                            '**/com/danhdueexoictif/androidgenericadapter/data/remote/request/**/*.*',
-                            '**/com/danhdueexoictif/androidgenericadapter/data/remote/response/**/*.*',
-                            '**/com/danhdueexoictif/androidgenericadapter/di/**/*.*',
-                            '**/com/danhdueexoictif/androidgenericadapter/utils/**/*.*',
-                            '**/com/danhdueexoictif/androidgenericadapter/ui/base/**/*.*'
+            def excludes = [
+                    '**/R.class',
+                    '**/R$*.class',
+                    '**/BR.class',
+                    '**/DataBinder*.class',
+                    '**/*DataBinding*.*',
+                    '**/*Directions.*',
+                    '**/*Directions*.*',
+                    '**/*Adapter*.*',
+                    '**/*Args*.*',
+                    '**/BuildConfig.*',
+                    '**/Manifest*.*',
+                    '**/*Test*.*',
+                    '**/android/**/*.*',
+                    '**/*Fragment.*',
+                    '**/*Fragment*.*',
+                    '**/*Activity.*',
+                    '**/*Activity*.*',
+                    '**/androidx/**/*.*',
+                    '**/CrashReportingTree.class',
+                    '**/*Companion.class',
+                    '**/org/koin/**/*.*',
+                    '**/databinding/*.*',
+                    '**/com/bumptech/glide/**/*.*',
+                    '**/*$ViewInjector*.*',
+                    '**/*$ViewBinder*.*',
+                    '**/*$Lambda$*.*', // Jacoco can not handle several "$" in class name.
+                    '**/*$*$*.*', // Anonymous classes generated by kotlin
+                    '**/CrashReportingTree.class',
+                    '**/*Companion.class',
+                    '**/*MapperImpl*.*',
+                    '**/*Component*.*',
+                    '**/*Extensions*.*',
+                    '**/*$Result.*', /* filtering `sealed` and `data` classes */
+                    '**/*$Result$*.*', /* filtering `sealed` and `data` classes */
+                    '**/com/danhdueexoictif/androidgenericadapter/AppController.*',
+                    '**/com/danhdueexoictif/androidgenericadapter/AppController*.*',
+                    '**/com/danhdueexoictif/androidgenericadapter/ui/widgets/**/*.*',
+                    '**/com/danhdueexoictif/androidgenericadapter/generated/**/*.*',
+                    '**/com/danhdueexoictif/androidgenericadapter/data/bean/**/*.*',
+                    '**/com/danhdueexoictif/androidgenericadapter/data/remote/request/**/*.*',
+                    '**/com/danhdueexoictif/androidgenericadapter/data/remote/response/**/*.*',
+                    '**/com/danhdueexoictif/androidgenericadapter/di/**/*.*',
+                    '**/com/danhdueexoictif/androidgenericadapter/utils/**/*.*',
+                    '**/com/danhdueexoictif/androidgenericadapter/ui/base/**/*.*'
             ]
             def javaClasses = fileTree(dir: variant.javaCompiler.destinationDir, excludes: excludes)
             def kotlinClasses = fileTree(dir: "${buildDir}/tmp/kotlin-classes/${variantName}", excludes: excludes)
-            classDirectories.from = files([javaClasses, kotlinClasses])
+            def youtubePlayerKotlinClasses = fileTree(dir: "${project.rootDir}/YoutubePlayer/build/tmp/kotlin-classes/${variantName}", excludes: excludes)
+            classDirectories.from = files([javaClasses, kotlinClasses, youtubePlayerKotlinClasses])
 
-            sourceDirectories.from = files([
+            def coverageSourceDirs = [
                     "$project.projectDir/src/main/java",
                     "$project.projectDir/src/${variantName}/java",
                     "$project.projectDir/src/main/kotlin",
-                    "$project.projectDir/src/${variantName}/kotlin"
-            ])
+                    "$project.projectDir/src/${variantName}/kotlin",
+                    "$project.rootDir/YoutubePlayer/src/main/java",
+                    "$project.rootDir/YoutubePlayer/src/${variantName}/java",
+                    "$project.rootDir/YoutubePlayer/src/main/kotlin",
+                    "$project.rootDir/YoutubePlayer/src/${variantName}/kotlin"
+            ]
+            additionalClassDirs.from = files(coverageSourceDirs)
+            sourceDirectories.from = files(coverageSourceDirs)
 
-            executionData.from = files("${project.buildDir}/jacoco/${testTaskName}.exec")
+            executionData.from = files(["${project.buildDir}/jacoco/${testTaskName}.exec",
+                                        "${project.rootDir}/YoutubePlayer/build/jacoco/${testTaskName}.exec"])
         }
     }
 }
@@ -90,6 +109,6 @@ task copyMd(type: Copy) {
         def variantName = variant.name
         def testTaskName = "test${variantName.capitalize()}UnitTest"
         from "${project.buildDir}/reports/tests/$testTaskName"
-        into "${project.rootDir}/.framgia-ci-reports/summary"
+        into "${project.rootDir}/.ci-reports/summary"
     }
 }

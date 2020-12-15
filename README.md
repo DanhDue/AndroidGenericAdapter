@@ -87,6 +87,7 @@ Libraries Used
 [32]: http://robolectric.org/
 [33]: https://viblo.asia/p/calbacks-trong-ung-dung-android-RnB5pk87lPG
 [34]: https://viblo.asia/p/change-retrofits-base-url-at-runtime-ORNZqDLMK0n
+[35]: https://viblo.asia/p/setup-jacoco-for-an-android-multiple-module-projectclean-architect-project-4dbZNNoqZYM
 
 Screenshots
 -----------
@@ -104,6 +105,7 @@ Screenshots
 
 References
 ----------
+* [setup Jacoco for an Android Multiple Module Project.][35]
 * [Change Android Retrofit's Base Url at runtime.][34]
 * [Change Android Brightness.][19]
 * [Play Youtube videos on Androids.][20]

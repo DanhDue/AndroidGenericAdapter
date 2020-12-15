@@ -27,6 +27,10 @@ allprojects {
     }
 }
 
+subprojects {
+    apply { plugin("jacoco") }
+}
+
 tasks.register("clean", Delete::class.java) {
     delete(buildDir)
 }

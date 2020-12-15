@@ -9,6 +9,6 @@
 .cxx
 fastlane/report.xml
 fastlane/README.md
-.framgia-ci-reports
+.ci-reports
 /app/src/main/assets/crashlytics-build.properties
 /app/src/main/res/values/com_crashlytics_export_strings.xml
