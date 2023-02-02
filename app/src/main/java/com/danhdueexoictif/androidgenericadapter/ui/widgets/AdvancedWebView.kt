@@ -183,7 +183,8 @@ class AdvancedWebView : WebView {
         this.requestCodeFilePicker = requestCodeFilePicker
     }
 
-    override fun setWebViewClient(client: WebViewClient?) {
+    override fun setWebViewClient(client: WebViewClient) {
+        super.setWebViewClient(client)
         customWebViewClient = client
     }
 
@@ -225,14 +226,20 @@ class AdvancedWebView : WebView {
      * @param historyUrl the URL to use for the page's history entry
      * @param encoding the encoding or charset of the HTML source text
      */
-    private fun loadHtml(
+    fun loadHtml(
         html: String,
         baseUrl: String? = null,
         historyUrl: String? = null,
         encoding: String? = "utf-8"
     ) {
         addJavascriptInterface()
-        loadDataWithBaseURL(baseUrl, html.getHtmlContent(), "text/html", encoding, historyUrl)
+        loadDataWithBaseURL(
+            baseUrl,
+            html.getHtmlContent() ?: "about:blank",
+            "text/html",
+            encoding,
+            historyUrl
+        )
     }
 
     @SuppressLint("NewApi")
@@ -439,7 +446,7 @@ class AdvancedWebView : WebView {
             webSettings.databasePath = databaseDir
         }
         scrollBarStyle = SCROLLBARS_INSIDE_OVERLAY
-//        setLayerType(View.LAYER_TYPE_HARDWARE, null)
+        setLayerType(View.LAYER_TYPE_HARDWARE, null)
 
         setMixedContentAllowed(webSettings, true)
 
@@ -522,7 +529,7 @@ class AdvancedWebView : WebView {
                 }
 
                 // route the request through the custom URL loading method
-                view?.loadUrl(url)
+                view?.loadUrl(url ?: "")
 
                 // cancel the original request
                 return true
@@ -575,7 +582,7 @@ class AdvancedWebView : WebView {
                 }
 
                 // route the request through the custom URL loading method
-                view?.loadUrl(url)
+                view?.loadUrl(url ?: "")
 
                 // cancel the original request
                 return true
@@ -941,12 +948,12 @@ class AdvancedWebView : WebView {
         }
     }
 
-    override fun loadUrl(url: String?, additionalHttpHeaders: MutableMap<String, String>?) {
+    override fun loadUrl(url: String, additionalHttpHeaders: MutableMap<String, String>) {
         additionalHttpHeaders === additionalHttpHeaders?.putAll(httpHeaders) ?: httpHeaders
         super.loadUrl(url, additionalHttpHeaders)
     }
 
-    override fun loadUrl(url: String?) {
+    override fun loadUrl(url: String) {
         if (httpHeaders.isNotEmpty()) {
             super.loadUrl(url, httpHeaders)
         } else {

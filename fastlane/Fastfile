@@ -1,0 +1,166 @@
+before_all do
+  Dotenv.overload '.env.secret'
+  Dotenv.overload '.env.info'
+  Dotenv.overload '.env.firebase.appid'
+end
+
+after_all do |lane|
+
+end
+
+platform :android do
+
+desc 'Build app  .
+   Example:  fastlane android  buildApp buildVariant:develop ticketNumber:1234 '
+  lane :Build do |values|
+     ticketNumber = "#{ENV['TICKET_NUMBER']}"
+     buildVariant = "#{ENV['BUILD_VARIANT']}"
+    puts "------------------- Stating build app  : #{buildVariant} .......... #{ticketNumber} "
+#build
+    gradle(task: 'clean' )
+    gradle(task: 'assemble', build_type: buildVariant, properties: { 'versionCode' => ticketNumber }, flags: "--build-cache")
+    puts "------------------- Build app successfully ! "
+  end
+desc 'lane check style code'
+  lane :checkstyle do |values|
+#build
+    gradle(task: 'checkstyle' )
+    puts "------------------- Check style finish ! "
+  end
+
+#=========================
+
+  desc 'lane PMD code'
+    lane :check_pmd do |values|
+  #build
+      gradle(task: 'pmd' )
+      puts "------------------- check PMD finish ! "
+    end
+
+#=========================
+desc 'lane check Lint code'
+    lane :check_lint do |values|
+  #build
+      gradle(task: 'lint' )
+      puts "------------------- check Lint finish ! "
+    end
+
+desc 'lane run Unit Test'
+    lane :run_unitTest do |values|
+      buildVariant = "#{ENV['BUILD_VARIANT']}"
+      buildVariant = "test"+buildVariant+"UnitTestCoverage"
+      puts "------------------- run Unit test : #{buildVariant} ! "
+      gradle(task: buildVariant, flags: "--build-cache")
+      gradle(task: 'copyMd')
+      puts "------------------- run Unit Test finish ! "
+    end
+
+#=========================
+desc "Beta Distribution "
+  lane :beta_distribute do
+  ticketNumber = "#{ENV['TICKET_NUMBER']}"
+  buildVariant = "#{ENV['BUILD_VARIANT']}"
+  distribution = "#{ENV['DISTRIBUTE_FIREBASE']}"
+
+  puts "------------------- Build app -----ticketNumber- #{ticketNumber} - -----buildVariant- #{buildVariant}! "
+  releaseNoteFile = File.read("./temp/releaseNote.txt")
+  time1 = Time.new
+  time = time1.strftime("%Y-%m-%d %H:%M:%S")
+ releaseNote =   time + "   " + releaseNoteFile
+  puts "------------------- Build app ---------- releaseNote ------  #{releaseNote}! "
+  #build
+  begin
+ # buildApp(ticketNumber: ticketNumber , buildVariant: buildVariant)
+  rescue => ex
+    UI.error(ex)
+  end
+  if distribution.nil? || distribution == 'false'
+     puts "------------------- Build app -----ticketNumber-----distribution- #{distribution}! "
+  else
+     puts "------------------- Build app -----ngon-----distribution- #{distribution}! "
+     begin
+       uploadFirebase(releaseNote:releaseNote)
+      rescue => ex
+      UI.error(ex)
+     end
+   #-------------
+   begin
+    commit = last_git_commit
+    contentCW =
+    "Ticket #{ticketNumber} has been uploaded successfully to Firebase App Distribution!
+    Platform : Android
+    BuildVariant : #{buildVariant}
+    Build number : #{ticketNumber}
+    Author : #{commit[:author]}
+    Email : #{commit[:author_email]}
+    Note : #{releaseNote} "
+     puts "------------------- Build app -----note - #{contentCW}! "
+  notifyCW(contentCW:contentCW)
+  rescue => ex
+    UI.error(ex)
+  end
+  end
+
+  end
+
+  # -------------------
+
+desc 'Build app  .
+   Example:  fastlane android  buildApp buildVariant:develop ticketNumber:1234 '
+  lane :buildApp do |values|
+    ticketNumber = values[:ticketNumber]
+    buildVariant = values[:buildVariant]
+    puts "------------------- Stating build app  : #{buildVariant} .......... #{ticketNumber} "
+#build
+    gradle(task: 'clean' )
+    gradle(task: 'assemble', build_type: buildVariant, properties: { 'versionCode' => ticketNumber })
+    puts "------------------- Build app successfully ! "
+  end
+#+++++++++++++++++++
+
+
+desc 'Upload to Firebase App Distribution.
+   Example:  fastlane android  uploadFirebase '
+lane :uploadFirebase do |values|
+   releaseNote = values[:releaseNote]
+   buildVariant = "#{ENV['BUILD_VARIANT']}"
+   puts "------------- BUILD_VARIANT: #{buildVariant}"
+   firebaseAppID = "#{ENV["#{buildVariant}"]}"
+   puts "------------- Firebase Android Application ID: #{firebaseAppID}"
+   # apk = Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+   # value = File.dirname(path)
+   va = File.absolute_path("../app/build/outputs/apk/")
+   # for apk -> dev -> debug folder(flavor = dev, buildVariant = 'debug'
+   # va2 = va+'/*/*/*.apk'
+   # for apk -> debug folder(flavor = null, buildVariant = 'debug'
+   va2 = va+'/*/*.apk'
+   path = Dir[va2][0]
+   puts "------------------- APK .......... #{path}  -------"
+   firebase_app_distribution(
+    app:"#{firebaseAppID}" ,
+    apk_path: path,
+    release_notes: "#{releaseNote}",
+    groups:"#{ENV['GROUP_TESTER']}",
+    firebase_cli_token: "#{ENV['FIREBASE_TOKEN_FOR_CI_SYSTEM']}"
+    )
+ puts "------------------- Distribution via Firebase successfully !!  "
+end
+
+#++++++++++++++++++
+desc "notification on chatwork
+ Example : fastlane android  notifyCW "
+  lane :notifyCW do |values|
+    puts "------------------- Put notification to Chatwork ----------------------  "
+    sendTo = ENV['SEND_TO']
+    content = values[:contentCW]
+    puts "------------------- Put notification to Chatwork ---------------------- #{content} "
+    chatwork(
+        message: "
+        #{sendTo}
+        #{content}",
+        roomid: "#{ENV['CHATWORK_ROOM_ID']}", #change with your room id
+        success: true,
+        api_token: "#{ENV['CHATWORK_API_TOKEN']}" #api token of chatbot
+    )
+end
+end
