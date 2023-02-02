@@ -1,0 +1,26 @@
+image: danhdue/shiseido:all
+
+stages:
+  - CIChecking
+
+variables:
+  LC_ALL: "en_US.UTF-8"
+  LANG: "en_US.UTF-8"
+
+before_script:
+  - chmod +x ./gradlew
+  - echo $ANDROID_HOME
+
+CIChecking:
+  dependencies: []
+  stage: CIChecking
+  artifacts:
+    paths:
+      - fastlane/screenshots
+      - fastlane/logs
+  script:
+    - fastlane android run_unitTest
+    - fastlane android Build
+    - fastlane android beta_distribute
+  tags:
+    - gitlab-server-docker

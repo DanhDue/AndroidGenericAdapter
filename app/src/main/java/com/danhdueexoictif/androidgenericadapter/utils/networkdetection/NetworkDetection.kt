@@ -1,5 +1,6 @@
 package com.danhdueexoictif.androidgenericadapter.utils.networkdetection
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
@@ -12,6 +13,7 @@ import androidx.annotation.RequiresPermission
 import androidx.lifecycle.LiveData
 
 @Suppress("DEPRECATION")
+@SuppressLint("MissingPermission")
 class NetworkDetection internal constructor(
     private val connectivityManager: ConnectivityManager,
     private val telephonyManager: TelephonyManager
@@ -31,19 +33,20 @@ class NetworkDetection internal constructor(
         } else {
             connectivityManager.activeNetworkInfo?.subtype
         }
-        override fun onAvailable(network: Network?) {
+
+        override fun onAvailable(network: Network) {
             // this ternary operation is not quite true, because non-metered doesn't yet mean, that it's wifi
             // nevertheless, for simplicity let's assume that's true
             if (connectivityManager.isActiveNetworkMetered) {
                 postState(ConnectionDef.MOBILE_DATA, true, networkInfoSubtype)
             } else {
-                network?.let { currentWifiNetwork = it.hashCode() }
+                network.let { currentWifiNetwork = it.hashCode() }
                 postState(ConnectionDef.WIFI_DATA, true, networkInfoSubtype)
             }
         }
 
-        override fun onLost(network: Network?) {
-            network?.apply {
+        override fun onLost(network: Network) {
+            network.apply {
                 if (network.hashCode() == currentWifiNetwork) {
                     postState(ConnectionDef.WIFI_DATA, false, networkInfoSubtype)
                 } else {
@@ -70,7 +73,13 @@ class NetworkDetection internal constructor(
                         postState(ConnectionDef.MOBILE_DATA, true, telephonyManager.networkType)
                     }
                 }
-            } ?: run { postState(ConnectionDef.NO_CONNECTION, false, TelephonyManager.NETWORK_TYPE_UNKNOWN) }
+            } ?: run {
+                postState(
+                    ConnectionDef.NO_CONNECTION,
+                    false,
+                    TelephonyManager.NETWORK_TYPE_UNKNOWN
+                )
+            }
         } else {
             val networkInfo = connectivityManager.activeNetworkInfo
             networkInfo?.let {
@@ -82,7 +91,13 @@ class NetworkDetection internal constructor(
                         postState(ConnectionDef.MOBILE_DATA, true, networkInfo.subtype)
                     }
                 }
-            } ?: run { postState(ConnectionDef.NO_CONNECTION, false, TelephonyManager.NETWORK_TYPE_UNKNOWN) }
+            } ?: run {
+                postState(
+                    ConnectionDef.NO_CONNECTION,
+                    false,
+                    TelephonyManager.NETWORK_TYPE_UNKNOWN
+                )
+            }
         }
         registerNetworkCallback()
     }
