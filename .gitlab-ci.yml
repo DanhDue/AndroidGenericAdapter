@@ -14,10 +14,15 @@ before_script:
 CIChecking:
   dependencies: []
   stage: CIChecking
+  cache:
+    paths:
+      - ./.gradle
+      - ./build
+      - ./app/build
+      - ./build-caches
   artifacts:
     paths:
-      - fastlane/screenshots
-      - fastlane/logs
+      - .ci-reports
   script:
     - fastlane android run_unitTest
     - fastlane android Build
