@@ -1,4 +1,4 @@
-image: danhdue/shiseido:all
+image: danhdue/genericadapter:latest
 
 stages:
   - CIChecking
