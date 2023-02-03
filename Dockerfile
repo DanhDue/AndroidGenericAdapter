@@ -38,11 +38,11 @@ RUN apk --no-cache add ca-certificates wget
 ARG ANDROID_COMPILE_SDK_VERSION=33
 ARG ANDROID_BUILD_TOOL_VERSION="33.0.1"
 ARG ANDROID_VERSION="android-${ANDROID_COMPILE_SDK_VERSION}"
-ARG ANDROID_EMULATOR_PACKAGE_x86="system-images;${ANDROID_VERSION};google_apis;x86"
+ARG ANDROID_EMULATOR_PACKAGE_x86_64="system-images;${ANDROID_VERSION};google_apis;x86_64"
 ARG ANDROID_PLATFORM_VERSION="platforms;${ANDROID_VERSION}"
 ARG ANDROID_SDK_VERSION="sdk-tools-linux-4333796.zip"
 ARG ANDROID_SDK_PACKAGES_EXTRA="build-tools;${ANDROID_BUILD_TOOL_VERSION}"
-ARG ANDROID_SDK_PACKAGES="${ANDROID_EMULATOR_PACKAGE_x86} ${ANDROID_PLATFORM_VERSION} platform-tools ${ANDROID_SDK_PACKAGES_EXTRA}"
+ARG ANDROID_SDK_PACKAGES="${ANDROID_EMULATOR_PACKAGE_x86_64} ${ANDROID_PLATFORM_VERSION} platform-tools ${ANDROID_SDK_PACKAGES_EXTRA}"
 
 RUN wget https://dl.google.com/android/repository/${ANDROID_SDK_VERSION} -P /tmp && \
     unzip -d /opt/android /tmp/${ANDROID_SDK_VERSION}
@@ -57,7 +57,7 @@ RUN yes Y | sdkmanager --verbose --no_https ${ANDROID_SDK_PACKAGES}
 
 # avdmanager
 ENV EMULATOR_NAME_x86="android_x86"
-RUN echo "no" | avdmanager --verbose create avd --force --name "${EMULATOR_NAME_x86}" --device "pixel" --package "${ANDROID_EMULATOR_PACKAGE_x86}"
+RUN echo "no" | avdmanager --verbose create avd --force --name "${EMULATOR_NAME_x86}" --device "pixel" --package "${ANDROID_EMULATOR_PACKAGE_x86_64}"
 ENV LD_LIBRARY_PATH "$ANDROID_HOME/emulator/lib64:$ANDROID_HOME/emulator/lib64/qt/lib"
 
 # Install Fastlane
@@ -76,7 +76,8 @@ RUN gem install fastlane -v 2.211.0
 ##firebase-tools setup
 ADD https://github.com/firebase/firebase-tools/releases/download/v11.22.0/firebase-tools-linux firebase-tools-linux
 RUN chmod +x firebase-tools-linux
-RUN ./firebase-tools-linux --open-sesame appdistribution
+# if we use firebase tools <7.4.0 we need additional command firebase --open-sesame appdistribution because until now this feature was in closed alpha.
+# RUN ./firebase-tools-linux --open-sesame appdistribution
 
 # Install gradle
 WORKDIR /gradle/wrapper/dists
